@@ -6,16 +6,19 @@ exports.handler = async (event) => {
     return { statusCode: 405, body: "Method Not Allowed" };
   }
   try {
-    const { subscription, favoriteIds, email } = JSON.parse(event.body);
+    const { subscription, favoriteIds, mutedIds, email } = JSON.parse(event.body);
     if (!subscription || !subscription.endpoint) {
       return { statusCode: 400, body: "구독 정보가 없습니다." };
     }
     const store = getStore("push-subscriptions");
     const key = Buffer.from(subscription.endpoint).toString("base64").slice(0, 60);
+    const existing = await store.get(key, { type: "json" }) || {};
     await store.setJSON(key, {
       subscription,
       favoriteIds: favoriteIds || [],
+      mutedIds: mutedIds || [],
       email: email || null,
+      seenRaceIds: existing.seenRaceIds || [],
       updatedAt: new Date().toISOString()
     });
     return { statusCode: 200, body: JSON.stringify({ ok: true }) };

@@ -21,16 +21,49 @@ function isFavorite(id) {
   return getFavorites().includes(id);
 }
 
+const MUTE_KEY = "runraider_muted_notifications";
+function getMuted() {
+  try { return JSON.parse(localStorage.getItem(MUTE_KEY) || "[]"); }
+  catch { return []; }
+}
+function isMuted(id) { return getMuted().includes(id); }
+function toggleMute(id) {
+  const muted = getMuted();
+  const idx = muted.indexOf(id);
+  if (idx >= 0) muted.splice(idx, 1); else muted.push(id);
+  localStorage.setItem(MUTE_KEY, JSON.stringify(muted));
+  syncPushSubscription();
+}
+
+async function syncPushSubscription() {
+  if (!("serviceWorker" in navigator)) return;
+  const reg = await navigator.serviceWorker.getRegistration("sw.js");
+  if (!reg) return;
+  const sub = await reg.pushManager.getSubscription();
+  if (!sub) return;
+  await fetch("/.netlify/functions/subscribe", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ subscription: sub, favoriteIds: getFavorites(), mutedIds: getMuted() })
+  }).catch(() => {});
+}
+
 function toggleFavorite(id) {
   const favs = getFavorites();
   const idx = favs.indexOf(id);
   if (idx >= 0) favs.splice(idx, 1); else favs.push(id);
   localStorage.setItem(FAV_KEY, JSON.stringify(favs));
+  syncPushSubscription();
 }
 
 function favButton(id) {
   const filled = isFavorite(id);
   return `<button class="fav-btn${filled ? " fav-active" : ""}" data-id="${id}" aria-label="찜하기" type="button">${filled ? "★" : "☆"}</button>`;
+}
+
+function muteButton(id) {
+  const muted = isMuted(id);
+  return `<button class="mute-btn${muted ? " muted" : ""}" data-mute-id="${id}" aria-label="알림 끄기" type="button" title="${muted ? "알림 꺼짐 - 클릭해서 켜기" : "알림 끄기"}">${muted ? "🔕" : "🔔"}</button>`;
 }
 
 function renderFavorites() {
@@ -43,7 +76,7 @@ function renderFavorites() {
   list.innerHTML = items.map(x => `
     <a class="urgency-item" href="race.html?id=${x.id}">
       <div><div class="urgency-name">${x.name}</div><div class="urgency-sub">${x.date} · ${x.region}</div></div>
-      ${favButton(x.id)}
+      <div class="race-item-right">${muteButton(x.id)}${favButton(x.id)}</div>
     </a>`).join("");
 }
 
@@ -181,6 +214,14 @@ function renderList() {
 }
 
 function handleFavClick(e) {
+  const muteBtn = e.target.closest(".mute-btn");
+  if (muteBtn) {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleMute(Number(muteBtn.dataset.muteId));
+    renderFavorites();
+    return;
+  }
   const btn = e.target.closest(".fav-btn");
   if (!btn) return;
   e.preventDefault();
@@ -212,6 +253,25 @@ function attachEvents() {
   document.getElementById("favorites-list").addEventListener("click", handleFavClick);
 }
 
+const NOTICE_KEY = "runraider_notice_hide_until";
+function initNoticePopup() {
+  const popup = document.getElementById("notice-popup");
+  if (!popup) return;
+  const hideUntil = localStorage.getItem(NOTICE_KEY);
+  const today = new Date().toDateString();
+  if (hideUntil === today) return;
+
+  popup.hidden = false;
+  document.getElementById("notice-popup-close").addEventListener("click", () => {
+    popup.hidden = true;
+  });
+  document.getElementById("notice-popup-hide-today").addEventListener("click", () => {
+    localStorage.setItem(NOTICE_KEY, today);
+    popup.hidden = true;
+  });
+}
+initNoticePopup();
+
 const VAPID_PUBLIC_KEY = "BGBv9EIIeo-zhHz6Ow2tfsu7LpQ7NAZ0CiW82q2KwIkveDYkA_41m_D9GC_TiCOPoIK4Dqi1k2XKO4YTGvC4rZw";
 
 function urlBase64ToUint8Array(base64String) {
@@ -238,7 +298,7 @@ async function enablePushNotifications() {
   await fetch("/.netlify/functions/subscribe", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ subscription: sub, favoriteIds: getFavorites() })
+    body: JSON.stringify({ subscription: sub, favoriteIds: getFavorites(), mutedIds: getMuted() })
   });
 
   const btn = document.getElementById("f-notify-btn");

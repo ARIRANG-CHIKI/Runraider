@@ -8,6 +8,17 @@
 <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div id="notice-popup" class="notice-popup" hidden>
+    <div class="notice-popup-card">
+      <p class="notice-popup-title">🔔 마감임박 알림 기능이 생겼어요</p>
+      <p class="notice-popup-body">찜한 대회의 접수 마감이 임박하면 알림으로 미리 알려드려요. 필터 옆 "마감임박 알림 받기" 버튼을 눌러보세요.</p>
+      <div class="notice-popup-actions">
+        <button type="button" id="notice-popup-hide-today" class="notice-popup-link">오늘 하루 보지 않기</button>
+        <button type="button" id="notice-popup-close" class="notice-popup-close">닫기</button>
+      </div>
+    </div>
+  </div>
+
   <header class="site-header">
     <div class="wrap">
       <div class="brand">
