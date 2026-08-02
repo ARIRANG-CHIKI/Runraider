@@ -1,0 +1,35 @@
+name: 대회 데이터 자동 갱신
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch: {}
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 저장소 체크아웃
+        uses: actions/checkout@v4
+
+      - name: 파이썬 설치
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: 의존성 설치
+        run: pip install -r requirements.txt
+
+      - name: 최신 대회 정보 재수집
+        run: python scrape_gorunning.py
+
+      - name: 데이터 재빌드
+        run: python rebuild_all.py && cp data_export.json data.json
+
+      - name: 변경사항 커밋 및 푸시
+        run: |
+          git config user.name "runraider-bot"
+          git config user.email "runraider-bot@users.noreply.github.com"
+          git add data.json gorunning_extracted_sample.csv
+          git diff --cached --quiet || git commit -m "자동 갱신: $(date +'%Y-%m-%d %H:%M')"
+          git push
