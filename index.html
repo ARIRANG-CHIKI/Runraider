@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>런레이더 | 가장 정확한 마라톤 일정표</title>
+<meta name="description" content="국내외 마라톤 대회 일정을 접수 마감임박·시작임박 순으로 확인하세요. 접수 상태 확인 시각까지 표시하는 가장 정확한 마라톤 일정표." />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <div class="brand">
+        <span class="brand-mark">🏃</span>
+        <div>
+          <h1>런레이더</h1>
+          <p class="tagline">가장 정확한 마라톤 일정표 — 마감임박 · 시작임박 · 코스 꿀팁</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="favorites-section" class="favorites-section" hidden>
+      <h2 class="urgency-title favorites-title">⭐ 내가 찜한 대회</h2>
+      <p class="urgency-note">이 브라우저에만 저장됩니다 - 다른 기기·브라우저에서는 보이지 않아요.</p>
+      <div id="favorites-list" class="urgency-list"></div>
+    </section>
+
+    <section id="reco-section" class="favorites-section" hidden>
+      <h2 class="urgency-title">🎯 찜한 대회 기반 추천</h2>
+      <p class="urgency-note">찜한 대회와 지역·거리가 비슷한 대회예요.</p>
+      <div id="reco-list" class="urgency-list"></div>
+    </section>
+
+    <section id="urgency" class="urgency-grid">
+      <div class="urgency-col">
+        <h2 class="urgency-title urgency-close">⏰ 마감임박 (7일 이내)</h2>
+        <div id="closing-list" class="urgency-list"></div>
+      </div>
+      <div class="urgency-col">
+        <h2 class="urgency-title urgency-open">🔔 시작임박 (14일 이내)</h2>
+        <p class="urgency-note">선착순 대회는 오픈 직후 마감되는 경우가 많습니다.</p>
+        <div id="opening-list" class="urgency-list"></div>
+      </div>
+    </section>
+
+    <section class="stats-row" id="stats-row"></section>
+
+    <section class="filters">
+      <input id="f-search" type="text" placeholder="대회명 검색" />
+      <select id="f-region"><option value="">지역 전체</option></select>
+      <select id="f-status">
+        <option value="">상태 전체</option>
+        <option value="접수중">접수중</option>
+        <option value="접수전">접수전</option>
+        <option value="접수마감">접수마감</option>
+        <option value="부문별 상이">부문별 상이</option>
+      </select>
+      <select id="f-tier">
+        <option value="">전체 계층</option>
+        <option value="Tier1">Tier1 메이저</option>
+        <option value="Tier2">Tier2 국내</option>
+      </select>
+      <button type="button" id="f-fav-only" class="fav-filter-chip" aria-pressed="false">⭐ 찜한 대회만</button>
+      <button type="button" id="f-notify-btn" class="fav-filter-chip">🔔 마감임박 알림 받기</button>
+    </section>
+
+    <p id="f-count" class="f-count"></p>
+
+    <section id="race-list" class="race-list"></section>
+    <button id="load-more" class="load-more" hidden>더 보기</button>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>데이터 출처: 고러닝(gorunning.kr), 마라톤GO(marathongo.co.kr), 각 대회 공식 사이트 · 마지막 확인: <span id="last-verified"></span></p>
+      <p class="disclaimer">정확한 접수 마감일과 정원은 반드시 각 대회 공식 사이트에서 최종 확인하세요.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

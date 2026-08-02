@@ -1,0 +1,9 @@
+[build]
+  publish = "."
+  command = "true"
+
+[functions]
+  directory = "netlify/functions"
+
+[functions."check-deadlines"]
+  schedule = "0 22 * * *"
