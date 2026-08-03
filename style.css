@@ -138,6 +138,7 @@ body { margin: 0; background: var(--page-bg); color: #2c2c2a; line-height: 1.5; 
 .detail-tips-empty-icon { flex-shrink: 0; }
 
 .notice-popup { position: fixed; inset: 0; background: rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center; z-index: 100; padding: 16px; }
+.notice-popup[hidden] { display: none; }
 .notice-popup-card { background: var(--surface); border-radius: 14px; max-width: 360px; width: 100%; padding: 20px 22px; }
 .notice-popup-title { font-size: 15px; font-weight: 600; margin: 0 0 8px; }
 .notice-popup-body { font-size: 13.5px; color: var(--muted); line-height: 1.5; margin: 0 0 18px; }
