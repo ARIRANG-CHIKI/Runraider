@@ -86,6 +86,17 @@ def main():
             all_records[rec["race_name"]] = rec
         time.sleep(1)
 
+    # 안전장치: gorunning.kr이 실행 환경(예: GitHub Actions 러너 IP)을 차단해
+    # 전 페이지 fetch가 실패하면 all_records가 비거나 비정상적으로 적어진다.
+    # 이 경우 기존에 커밋된 CSV를 빈 파일로 덮어써서 대회 데이터를 통째로
+    # 날려버리는 사고(실제로 168개->19개로 줄어든 적 있음)를 막기 위해,
+    # 최소 건수 미만이면 파일을 건드리지 않고 실패로 종료한다.
+    MIN_RECORDS = 50
+    if len(all_records) < MIN_RECORDS:
+        print(f"경고: 수집된 대회가 {len(all_records)}건뿐입니다 (최소 {MIN_RECORDS}건 기준 미달). "
+              f"차단/네트워크 문제로 판단해 기존 CSV를 보존하고 실패 처리합니다.")
+        raise SystemExit(1)
+
     fieldnames = ["race_name", "race_date", "distance_labels", "region",
                   "location_detail", "host_org", "registration_status",
                   "source_url", "source", "tier"]

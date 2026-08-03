@@ -26,6 +26,17 @@ jobs:
       - name: 데이터 재빌드
         run: python rebuild_all.py && cp data_export.json data.json
 
+      - name: 대회 수 급감 여부 확인 (안전장치)
+        run: |
+          OLD_COUNT=$(git show HEAD:data.json | python -c "import json,sys; print(len(json.load(sys.stdin)['races']))")
+          NEW_COUNT=$(python -c "import json; print(len(json.load(open('data.json', encoding='utf-8'))['races']))")
+          echo "이전: $OLD_COUNT 건, 신규: $NEW_COUNT 건"
+          THRESHOLD=$((OLD_COUNT * 70 / 100))
+          if [ "$NEW_COUNT" -lt "$THRESHOLD" ]; then
+            echo "::error::대회 수가 $OLD_COUNT -> $NEW_COUNT 로 급감했습니다 (임계값 $THRESHOLD). 커밋을 중단합니다."
+            exit 1
+          fi
+
       - name: 변경사항 커밋 및 푸시
         run: |
           git config user.name "runraider-bot"
