@@ -33,7 +33,7 @@ async function sendEmail(to, subject, html) {
 }
 
 exports.handler = async () => {
-  const dataRes = await fetch("https://runraider.netlify.app/data.json");
+  const dataRes = await fetch("https://runraiderv.netlify.app/data.json");
   const { races } = await dataRes.json();
   const raceById = Object.fromEntries(races.map(r => [r.id, r]));
 
@@ -44,14 +44,9 @@ exports.handler = async () => {
   for (const b of blobs) {
     const entry = await store.get(b.key, { type: "json" });
     if (!entry) continue;
-    const { subscription, favoriteIds, mutedIds, email, seenRaceIds } = entry;
-    const muted = mutedIds || [];
-    const seen = seenRaceIds || [];
+    const { subscription, favoriteIds, email } = entry;
 
-    // 알림을 끄지 않았고, 아직 클릭해서 확인하지 않은 대회는 마감 3일 전부터 매일 알림
     const closing = (favoriteIds || [])
-      .filter(id => !muted.includes(id))
-      .filter(id => !seen.includes(id))
       .map(id => raceById[id])
       .filter(r => r && r.status === "접수중" && r.regEnd)
       .map(r => ({ ...r, dday: daysUntil(r.regEnd) }))
@@ -61,10 +56,9 @@ exports.handler = async () => {
 
     for (const race of closing) {
       const payload = JSON.stringify({
-        title: "🏃 런레이더 - 마감임박",
-        body: `찜한 [${race.name}] 접수가 ${race.regEnd} 마감이에요. 서두르세요!`,
-        url: `https://runraider.netlify.app/race.html?id=${race.id}`,
-        raceId: race.id
+        title: "런레이더 - 접수 마감 임박",
+        body: `찜한 대회 [${race.name}] 접수가 ${race.regEnd}에 마감돼요.`,
+        url: `https://runraiderv.netlify.app/race.html?id=${race.id}`
       });
       try {
         if (subscription) await webpush.sendNotification(subscription, payload);

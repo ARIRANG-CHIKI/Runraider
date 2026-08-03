@@ -21,49 +21,16 @@ function isFavorite(id) {
   return getFavorites().includes(id);
 }
 
-const MUTE_KEY = "runraider_muted_notifications";
-function getMuted() {
-  try { return JSON.parse(localStorage.getItem(MUTE_KEY) || "[]"); }
-  catch { return []; }
-}
-function isMuted(id) { return getMuted().includes(id); }
-function toggleMute(id) {
-  const muted = getMuted();
-  const idx = muted.indexOf(id);
-  if (idx >= 0) muted.splice(idx, 1); else muted.push(id);
-  localStorage.setItem(MUTE_KEY, JSON.stringify(muted));
-  syncPushSubscription();
-}
-
-async function syncPushSubscription() {
-  if (!("serviceWorker" in navigator)) return;
-  const reg = await navigator.serviceWorker.getRegistration("sw.js");
-  if (!reg) return;
-  const sub = await reg.pushManager.getSubscription();
-  if (!sub) return;
-  await fetch("/.netlify/functions/subscribe", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ subscription: sub, favoriteIds: getFavorites(), mutedIds: getMuted() })
-  }).catch(() => {});
-}
-
 function toggleFavorite(id) {
   const favs = getFavorites();
   const idx = favs.indexOf(id);
   if (idx >= 0) favs.splice(idx, 1); else favs.push(id);
   localStorage.setItem(FAV_KEY, JSON.stringify(favs));
-  syncPushSubscription();
 }
 
 function favButton(id) {
   const filled = isFavorite(id);
   return `<button class="fav-btn${filled ? " fav-active" : ""}" data-id="${id}" aria-label="찜하기" type="button">${filled ? "★" : "☆"}</button>`;
-}
-
-function muteButton(id) {
-  const muted = isMuted(id);
-  return `<button class="mute-btn${muted ? " muted" : ""}" data-mute-id="${id}" aria-label="알림 끄기" type="button" title="${muted ? "알림 꺼짐 - 클릭해서 켜기" : "알림 끄기"}">${muted ? "🔕" : "🔔"}</button>`;
 }
 
 function renderFavorites() {
@@ -76,7 +43,7 @@ function renderFavorites() {
   list.innerHTML = items.map(x => `
     <a class="urgency-item" href="race.html?id=${x.id}">
       <div><div class="urgency-name">${x.name}</div><div class="urgency-sub">${x.date} · ${x.region}</div></div>
-      <div class="race-item-right">${muteButton(x.id)}${favButton(x.id)}</div>
+      ${favButton(x.id)}
     </a>`).join("");
 }
 
@@ -214,14 +181,6 @@ function renderList() {
 }
 
 function handleFavClick(e) {
-  const muteBtn = e.target.closest(".mute-btn");
-  if (muteBtn) {
-    e.preventDefault();
-    e.stopPropagation();
-    toggleMute(Number(muteBtn.dataset.muteId));
-    renderFavorites();
-    return;
-  }
   const btn = e.target.closest(".fav-btn");
   if (!btn) return;
   e.preventDefault();
@@ -272,7 +231,7 @@ function initNoticePopup() {
 }
 initNoticePopup();
 
-const VAPID_PUBLIC_KEY = "BGBv9EIIeo-zhHz6Ow2tfsu7LpQ7NAZ0CiW82q2KwIkveDYkA_41m_D9GC_TiCOPoIK4Dqi1k2XKO4YTGvC4rZw";
+const VAPID_PUBLIC_KEY ="BGBv9EIIeo-zhHz6Ow2tfsu7LpQ7NAZ0CiW82q2KwIkveDYkA_41m_D9GC_TiCOPoIK4Dqi1k2XKO4YTGvC4rZw";
 
 function urlBase64ToUint8Array(base64String) {
   const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
@@ -295,14 +254,21 @@ async function enablePushNotifications() {
     applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY)
   });
 
+  let email = prompt("이메일로도 알림을 받고 싶으면 이메일 주소를 입력해주세요.\n(선택 사항 - 그냥 취소를 누르면 브라우저 알림만 켜집니다)");
+  if (email) email = email.trim();
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    alert("이메일 형식이 올바르지 않아 이메일 알림은 건너뛰고 브라우저 알림만 켭니다.");
+    email = null;
+  }
+
   await fetch("/.netlify/functions/subscribe", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ subscription: sub, favoriteIds: getFavorites(), mutedIds: getMuted() })
+    body: JSON.stringify({ subscription: sub, favoriteIds: getFavorites(), email })
   });
 
   const btn = document.getElementById("f-notify-btn");
-  if (btn) { btn.textContent = "🔔 알림 켜짐"; btn.classList.add("active"); }
+  if (btn) { btn.textContent = email ? "🔔 알림 켜짐 (푸시+이메일)" : "🔔 알림 켜짐"; btn.classList.add("active"); }
 }
 
 document.getElementById("f-notify-btn")?.addEventListener("click", enablePushNotifications);
