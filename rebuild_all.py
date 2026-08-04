@@ -86,6 +86,9 @@ tier1 = [
     ("TCS 런던 마라톤", "2027-04-25", "해외", None, "London Marathon Events", "접수전",
      "https://www.londonmarathonevents.co.uk/london-marathon/take-part", ["풀코스"],
      "2026년 밸럿에 113만 명 이상 응모(역대 최고) - 일반 자리 약 1.7만 개, 당첨확률 약 1.5%(66명 중 1명) - 6대 메이저 중 가장 낮은 당첨률"),
+    ("TCS 시드니 마라톤", "2027-08-29", "해외", None, "TCS Sydney Marathon", "접수전",
+     "https://www.tcssydneymarathon.com/", ["풀코스"],
+     "2025년 월드마라톤메이저스(WMM) 7번째 정식 멤버로 승격된 최신 메이저 대회"),
 ]
 for name, dt, region, loc, host, status, url, dists, comp_note in tier1:
     cur.execute("""INSERT INTO races (race_name, race_date, region, location_detail, host_org,
@@ -139,6 +142,12 @@ tier2_overseas = [
     ("사이판 마라톤", "2027-03-06", "해외", None, "Marianas Visitors Authority", "접수전",
      "https://www.mymarianas.com/saipan-marathon/", ["풀코스", "하프"],
      "한국인 참가 비중이 높은 대회(약 37%)로 알려짐 - 매년 3월 첫째 주 토요일 개최 패턴, 2027년 정확한 날짜는 공식 사이트에서 재확인 필요"),
+    ("스탠다드차타드 홍콩 마라톤", "2027-01-17", "해외", None, "Hong Kong Amateur Athletic Association", "접수전",
+     "https://www.hkmarathon.com/", ["풀코스"],
+     "아시아 대표 대회 중 하나 - 홍콩 도심·터널 구간을 달리는 코스로 유명, 추첨제"),
+    ("싱가포르 국제마라톤", "2026-12-06", "해외", None, "Standard Chartered / Singapore International Marathon", "접수전",
+     "https://singaporeinternationalmarathon.com/", ["풀코스"],
+     "동남아 대표 대회, 야간 무더위 속 진행되는 것으로 유명 - 접근성 좋아 한국인 참가 여행 상품 다수"),
 ]
 for name, dt, region, loc, host, status, url, dists, comp_note in tier2_overseas:
     cur.execute("""INSERT INTO races (race_name, race_date, region, location_detail, host_org,
