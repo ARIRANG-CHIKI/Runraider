@@ -2,6 +2,20 @@
 const { getStore } = require("@netlify/blobs");
 
 exports.handler = async (event) => {
+  if (event.httpMethod === "DELETE") {
+    try {
+      const { endpoint } = JSON.parse(event.body);
+      if (!endpoint) {
+        return { statusCode: 400, body: "endpoint가 없습니다." };
+      }
+      const store = getStore("push-subscriptions");
+      const key = Buffer.from(endpoint).toString("base64").slice(0, 60);
+      await store.delete(key);
+      return { statusCode: 200, body: JSON.stringify({ ok: true }) };
+    } catch (err) {
+      return { statusCode: 500, body: "구독 취소 실패: " + err.message };
+    }
+  }
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Method Not Allowed" };
   }

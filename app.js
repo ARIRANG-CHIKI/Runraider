@@ -271,7 +271,41 @@ async function enablePushNotifications() {
   if (btn) { btn.textContent = email ? "🔔 알림 켜짐 (푸시+이메일)" : "🔔 알림 켜짐"; btn.classList.add("active"); }
 }
 
-document.getElementById("f-notify-btn")?.addEventListener("click", enablePushNotifications);
+async function getExistingPushSubscription() {
+  if (!("serviceWorker" in navigator) || !("PushManager" in window)) return null;
+  const reg = await navigator.serviceWorker.getRegistration("sw.js");
+  if (!reg) return null;
+  return reg.pushManager.getSubscription();
+}
+
+async function disablePushNotifications(sub) {
+  await fetch("/.netlify/functions/subscribe", {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ endpoint: sub.endpoint })
+  });
+  await sub.unsubscribe();
+
+  const btn = document.getElementById("f-notify-btn");
+  if (btn) { btn.textContent = "🔔 마감임박 알림 받기"; btn.classList.remove("active"); }
+}
+
+async function handleNotifyClick() {
+  const existing = await getExistingPushSubscription();
+  if (existing) {
+    await disablePushNotifications(existing);
+  } else {
+    await enablePushNotifications();
+  }
+}
+
+document.getElementById("f-notify-btn")?.addEventListener("click", handleNotifyClick);
+
+getExistingPushSubscription().then(sub => {
+  if (!sub) return;
+  const btn = document.getElementById("f-notify-btn");
+  if (btn) { btn.textContent = "🔔 알림 켜짐"; btn.classList.add("active"); }
+});
 
 fetch("data.json")
   .then(r => r.json())
