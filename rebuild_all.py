@@ -98,6 +98,44 @@ for name, dt, region, loc, host, status, url, dists, comp_note in tier1:
 
 conn.commit()
 
+# ---- Tier2: 한국인에게 인기 있는 해외 마라톤 (세계 6대 메이저 외) ----
+tier2_overseas = [
+    ("오사카 마라톤", "2027-02-28", "해외", None, "오사카 마라톤 조직위원회", "접수전",
+     "https://osaka-marathon.com/", ["풀코스"],
+     "일본 3대 인기 마라톤 중 하나로 꼽히며 추첨제로 진행"),
+    ("교토 마라톤", "2027-02-21", "해외", None, "교토 마라톤 실행위원회", "접수전",
+     "https://kyoto-marathon.com/en/", ["풀코스"],
+     "교토 시내 명소를 도는 코스로 인기, 추첨제"),
+    ("나고야 우먼스 마라톤", "2027-03-14", "해외", None, "나고야 우먼스 마라톤 실행위원회", "접수전",
+     "https://womens-marathon.nagoya/en/", ["풀코스"],
+     "여성 전용 마라톤 - 완주 시 티파니 목걸이 부상으로 유명"),
+    ("JAL 호놀룰루 마라톤", "2026-12-13", "해외", None, "Honolulu Marathon Association", "접수중",
+     "https://www.honolulumarathon.org/", ["풀코스"],
+     "시간제한 없는 완주 중심 대회, 선착순 접수라 마감 부담 적음"),
+    ("다낭 국제마라톤", "2027-03-21", "해외", None, "Danang International Marathon", "접수전",
+     "https://rundanang.com/en/", ["풀코스", "하프"],
+     "해변 휴양지 다낭에서 열려 가족 여행 겸 참가하는 한국인 많음"),
+    ("앙코르와트 국제하프마라톤", "2026-12-06", "해외", None, "Angkor Wat International Half Marathon Organizing Committee", "접수중",
+     "https://kh.checkpointspot.asia/event/Angkor-Wat-International-HM-2026", ["하프"],
+     "앙코르와트 유적 사이를 달리는 이색 코스로 여행 겸 참가 인기"),
+    ("라구나 푸켓 마라톤", "2027-06-12", "해외", None, "Laguna Phuket Marathon", "접수전",
+     "https://phuketmarathon.com/race-information/", ["풀코스"],
+     "리조트 단지 내 코스, 무더위 속 진행되는 이색 완주 경험"),
+    ("산람 케이프타운 마라톤", "2027-05-23", "해외", None, "Sanlam Cape Town Marathon", "접수전",
+     "https://capetownmarathon.com/", ["풀코스"],
+     "월드마라톤메이저스(WMM) 신규 편입 대회로 주목받는 중"),
+]
+for name, dt, region, loc, host, status, url, dists, comp_note in tier2_overseas:
+    cur.execute("""INSERT INTO races (race_name, race_date, region, location_detail, host_org,
+                   registration_status, official_url, last_verified_at, tier, source, competitiveness_note)
+                   VALUES (?,?,?,?,?,?,?,?,?,?,?)""",
+                (name, dt, region, loc, host, status, url, "2026-08-04", "Tier2", "공식 사이트 직접확인 + 여행사/블로그 후기 교차확인", comp_note))
+    race_id = cur.lastrowid
+    for lab in dists:
+        cur.execute("INSERT INTO race_distances (race_id, distance_label) VALUES (?,?)", (race_id, lab))
+
+conn.commit()
+
 # ---- 마라톤GO 접수기간 교차보강 ----
 with open("marathongo_raw.txt", encoding="utf-8") as f:
     raw = f.read()
