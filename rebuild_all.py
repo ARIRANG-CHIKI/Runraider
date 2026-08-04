@@ -148,6 +148,18 @@ tier2_overseas = [
     ("싱가포르 국제마라톤", "2026-12-06", "해외", None, "Standard Chartered / Singapore International Marathon", "접수전",
      "https://singaporeinternationalmarathon.com/", ["풀코스"],
      "동남아 대표 대회, 야간 무더위 속 진행되는 것으로 유명 - 접근성 좋아 한국인 참가 여행 상품 다수"),
+    ("아테네 정통 마라톤", "2026-11-08", "해외", None, "SEGAS (그리스 육상연맹)", "접수전",
+     "https://www.athensauthenticmarathon.gr/en", ["풀코스"],
+     "고대 마라톤 전투 경로를 그대로 달리는 '원조' 마라톤 - 완주 자체에 상징적 의미가 커 버킷리스트로 꼽힘"),
+    ("에히메 마라톤", "2027-02-07", "해외", None, "에히메 마라톤 실행위원회", "접수전",
+     "https://ehimemarathon.jp/english/", ["풀코스"],
+     "일본 마쓰야마 세토내해 해안선을 도는 코스로 현지 인기가 높은 지방 대표 대회"),
+    ("VMM 사파 마라톤", "2026-09-19", "해외", None, "Vietnam Mountain Marathon", "접수전",
+     "https://vietnammountainmarathon.com/", ["하프", "10km"],
+     "베트남 산악 지대(사파)를 달리는 트레일 코스 - 최근 트레일러닝 인기와 맞물려 한국인 참가 증가 중"),
+    ("대련 국제마라톤", "2025-05-11", "해외", None, "Dalian International Marathon", "접수전",
+     "https://aims-worldrunning.org/races/720.html", ["풀코스"],
+     "확인 가능한 가장 최근 개최일(2025년) 기준 - 매년 봄 개최되나 2027년 정확한 일정은 미발표, 공식 채널 재확인 필요"),
 ]
 for name, dt, region, loc, host, status, url, dists, comp_note in tier2_overseas:
     cur.execute("""INSERT INTO races (race_name, race_date, region, location_detail, host_org,
