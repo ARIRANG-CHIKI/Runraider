@@ -124,6 +124,15 @@ tier2_overseas = [
     ("산람 케이프타운 마라톤", "2027-05-23", "해외", None, "Sanlam Cape Town Marathon", "접수전",
      "https://capetownmarathon.com/", ["풀코스"],
      "월드마라톤메이저스(WMM) 신규 편입 대회로 주목받는 중"),
+    ("C&D 샤먼 국제마라톤", "2027-01-10", "해외", None, "厦门国际马拉松赛组委会", "접수전",
+     "https://www.xmim.org/", ["풀코스"],
+     "World Athletics 플래티넘 라벨 대회, 정원 약 3만 명 규모의 중국 대표 마라톤"),
+    ("프라하 마라톤", "2027-05-02", "해외", None, "RunCzech", "접수전",
+     "https://www.runczech.com/en/", ["풀코스"],
+     "세계에서 가장 아름다운 코스로 꼽히는 대회 중 하나 (RunCzech 시리즈)"),
+    ("발렌시아 마라톤", "2027-12-05", "해외", None, "Valencia Ciudad del Running", "접수전",
+     "https://www.valenciaciudaddelrunning.com/en/", ["풀코스"],
+     "세계에서 가장 빠른 코스로 꼽혀 기록 경신 목적 참가자가 많고 매년 조기 마감"),
 ]
 for name, dt, region, loc, host, status, url, dists, comp_note in tier2_overseas:
     cur.execute("""INSERT INTO races (race_name, race_date, region, location_detail, host_org,

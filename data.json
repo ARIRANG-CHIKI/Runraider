@@ -3156,6 +3156,25 @@
 "capacityInfo": null
 },
 {
+"id": 177,
+"name": "C&D 샤먼 국제마라톤",
+"date": "2027-01-10",
+"region": "해외",
+"place": "",
+"host": "厦门国际马拉松赛组委会",
+"status": "접수전",
+"url": "https://www.xmim.org/",
+"tier": "Tier2",
+"lastVerifiedAt": "2026-08-04",
+"regStart": null,
+"regEnd": null,
+"distances": "풀코스",
+"regStartTime": null,
+"competitivenessNote": "World Athletics 플래티넘 라벨 대회, 정원 약 3만 명 규모의 중국 대표 마라톤",
+"feeInfo": null,
+"capacityInfo": null
+},
+{
 "id": 170,
 "name": "교토 마라톤",
 "date": "2027-02-21",
@@ -3308,6 +3327,25 @@
 "capacityInfo": null
 },
 {
+"id": 178,
+"name": "프라하 마라톤",
+"date": "2027-05-02",
+"region": "해외",
+"place": "",
+"host": "RunCzech",
+"status": "접수전",
+"url": "https://www.runczech.com/en/",
+"tier": "Tier2",
+"lastVerifiedAt": "2026-08-04",
+"regStart": null,
+"regEnd": null,
+"distances": "풀코스",
+"regStartTime": null,
+"competitivenessNote": "세계에서 가장 아름다운 코스로 꼽히는 대회 중 하나 (RunCzech 시리즈)",
+"feeInfo": null,
+"capacityInfo": null
+},
+{
 "id": 176,
 "name": "산람 케이프타운 마라톤",
 "date": "2027-05-23",
@@ -3342,6 +3380,25 @@
 "distances": "풀코스",
 "regStartTime": null,
 "competitivenessNote": "리조트 단지 내 코스, 무더위 속 진행되는 이색 완주 경험",
+"feeInfo": null,
+"capacityInfo": null
+},
+{
+"id": 179,
+"name": "발렌시아 마라톤",
+"date": "2027-12-05",
+"region": "해외",
+"place": "",
+"host": "Valencia Ciudad del Running",
+"status": "접수전",
+"url": "https://www.valenciaciudaddelrunning.com/en/",
+"tier": "Tier2",
+"lastVerifiedAt": "2026-08-04",
+"regStart": null,
+"regEnd": null,
+"distances": "풀코스",
+"regStartTime": null,
+"competitivenessNote": "세계에서 가장 빠른 코스로 꼽혀 기록 경신 목적 참가자가 많고 매년 조기 마감",
 "feeInfo": null,
 "capacityInfo": null
 }
