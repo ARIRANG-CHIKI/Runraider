@@ -64,6 +64,7 @@ body { margin: 0; background: var(--page-bg); color: #2c2c2a; line-height: 1.5; 
 .race-meta { font-size: 12px; color: var(--muted); margin-top: 2px; }
 .competitiveness-note { font-size: 12px; color: var(--warning); margin-top: 4px; line-height: 1.4; }
 .tier1-badge { display: inline-block; font-size: 10.5px; font-weight: 600; padding: 1px 7px; border-radius: 20px; background: #eeedfe; color: #3c3489; margin-right: 6px; }
+.uncertain-badge { display: inline-block; font-size: 10.5px; font-weight: 600; padding: 1px 7px; border-radius: 20px; background: #fff4e0; color: #9a5b00; margin-right: 6px; }
 .status-badge { flex-shrink: 0; font-size: 12px; padding: 3px 10px; border-radius: 20px; white-space: nowrap; }
 .status-접수중 { background: var(--success-bg); color: var(--success); }
 .status-접수마감 { background: #f1efe8; color: var(--muted); }

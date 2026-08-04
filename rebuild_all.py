@@ -21,7 +21,8 @@ CREATE TABLE races (
   source TEXT,
   reg_start TEXT,
   reg_end TEXT,
-  competitiveness_note TEXT
+  competitiveness_note TEXT,
+  date_uncertain INTEGER DEFAULT 0
 );
 CREATE TABLE race_distances (
   distance_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -161,11 +162,13 @@ tier2_overseas = [
      "https://aims-worldrunning.org/races/720.html", ["풀코스"],
      "확인 가능한 가장 최근 개최일(2025년) 기준 - 매년 봄 개최되나 2027년 정확한 일정은 미발표, 공식 채널 재확인 필요"),
 ]
+DATE_UNCERTAIN_RACES = {"사이판 마라톤", "대련 국제마라톤"}
 for name, dt, region, loc, host, status, url, dists, comp_note in tier2_overseas:
     cur.execute("""INSERT INTO races (race_name, race_date, region, location_detail, host_org,
-                   registration_status, official_url, last_verified_at, tier, source, competitiveness_note)
-                   VALUES (?,?,?,?,?,?,?,?,?,?,?)""",
-                (name, dt, region, loc, host, status, url, "2026-08-04", "Tier2", "공식 사이트 직접확인 + 여행사/블로그 후기 교차확인", comp_note))
+                   registration_status, official_url, last_verified_at, tier, source, competitiveness_note, date_uncertain)
+                   VALUES (?,?,?,?,?,?,?,?,?,?,?,?)""",
+                (name, dt, region, loc, host, status, url, "2026-08-04", "Tier2", "공식 사이트 직접확인 + 여행사/블로그 후기 교차확인", comp_note,
+                 1 if name in DATE_UNCERTAIN_RACES else 0))
     race_id = cur.lastrowid
     for lab in dists:
         cur.execute("INSERT INTO race_distances (race_id, distance_label) VALUES (?,?)", (race_id, lab))
@@ -251,7 +254,7 @@ out_rows = cur.execute("""
     SELECT r.race_id, r.race_name, r.race_date, r.region, r.location_detail, r.host_org,
            r.registration_status, r.official_url, r.tier, r.last_verified_at,
            r.reg_start, r.reg_end, GROUP_CONCAT(d.distance_label, ', '), r.reg_start_time,
-           r.competitiveness_note, r.fee_info, r.capacity_info
+           r.competitiveness_note, r.fee_info, r.capacity_info, r.date_uncertain
     FROM races r LEFT JOIN race_distances d ON r.race_id = d.race_id
     GROUP BY r.race_id
     ORDER BY r.race_date
@@ -265,7 +268,7 @@ for r in out_rows:
         "status": r[6], "url": r[7],
         "tier": r[8], "lastVerifiedAt": r[9], "regStart": r[10], "regEnd": r[11],
         "distances": (r[12] if r[12] and r[12] != "미정" else "거리 미확인"), "regStartTime": r[13], "competitivenessNote": r[14],
-        "feeInfo": r[15], "capacityInfo": r[16]
+        "feeInfo": r[15], "capacityInfo": r[16], "dateUncertain": bool(r[17])
     })
 
 with open("data_export.json", "w", encoding="utf-8") as f:

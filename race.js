@@ -52,7 +52,7 @@ Promise.all([
       <div class="detail-hero">
         <div class="detail-head">
           <div>
-            <div class="race-name-lg">${race.tier === "Tier1" ? '<span class="tier1-badge">Tier1</span>' : ""}${race.name}</div>
+            <div class="race-name-lg">${race.tier === "Tier1" ? '<span class="tier1-badge">Tier1</span>' : ""}${race.dateUncertain ? '<span class="uncertain-badge">⚠️ 일정 미확정</span>' : ""}${race.name}</div>
             <div class="detail-meta">${race.date} · ${ddayLine}</div>
           </div>
           <span class="status-badge ${statusClass(race.status)}">${race.status}</span>
@@ -60,6 +60,8 @@ Promise.all([
         <div class="dist-pills">${distPills}</div>
         <button id="detail-fav-btn" class="fav-btn detail-fav-btn${isFavorite(race.id) ? " fav-active" : ""}" type="button">${isFavorite(race.id) ? "★ 찜한 대회" : "☆ 찜하기"}</button>
       </div>
+
+      ${race.dateUncertain ? `<div class="detail-tips-empty" style="margin:0 20px 16px;">⚠️ 이 날짜는 최근 확인된 개최 정보를 기준으로 추정한 값이에요. 실제 신청 전에 공식 사이트에서 정확한 일정을 다시 확인해주세요.</div>` : ""}
 
       ${race.competitivenessNote ? `<div class="competitiveness-note detail-competitiveness">🔥 ${race.competitivenessNote}</div>` : ""}
 

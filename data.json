@@ -18,7 +18,8 @@
 "regStartTime": null,
 "competitivenessNote": "확인 가능한 가장 최근 개최일(2025년) 기준 - 매년 봄 개최되나 2027년 정확한 일정은 미발표, 공식 채널 재확인 필요",
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": true
 },
 {
 "id": 150,
@@ -37,7 +38,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "10K+ 단일코스 40,000원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 1,
@@ -56,7 +58,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 151,
@@ -75,7 +78,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "10km·5km 동일 23,000원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 2,
@@ -94,7 +98,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 3,
@@ -113,7 +118,8 @@
 "regStartTime": "14:00",
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 152,
@@ -132,7 +138,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "그룹별 S플러스 13만원 · S 8만원 · A~F(일반) 6만원",
-"capacityInfo": "선착순 20,000명"
+"capacityInfo": "선착순 20,000명",
+"dateUncertain": false
 },
 {
 "id": 4,
@@ -151,7 +158,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "50km 30,000원",
-"capacityInfo": "선착순 120명"
+"capacityInfo": "선착순 120명",
+"dateUncertain": false
 },
 {
 "id": 5,
@@ -170,7 +178,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 6,
@@ -189,7 +198,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 7,
@@ -208,7 +218,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "무료",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 8,
@@ -227,7 +238,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "9PEAKS(약123km) 330,000원 / 7PEAKS(약96.8km) 280,000원 / 5PEAKS(약45km) 180,000원 / 2PEAKS(약26km) 120,000원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 9,
@@ -246,7 +258,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "5km·10km 동일 50,000원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 10,
@@ -265,7 +278,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "37K 109,000원 / 13K 59,000원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 11,
@@ -284,7 +298,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "8.15km 단일종목 60,000~65,000원(시기별 상이)",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 12,
@@ -303,7 +318,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "10km 40,000원 / HALF 50,000원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 13,
@@ -322,7 +338,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 14,
@@ -341,7 +358,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "22K 9.8만원 · 13K 7.8만원",
-"capacityInfo": "총 900명"
+"capacityInfo": "총 900명",
+"dateUncertain": false
 },
 {
 "id": 153,
@@ -360,7 +378,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 15,
@@ -379,7 +398,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "무료",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 16,
@@ -398,7 +418,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "전 종목 동일 55,000원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 149,
@@ -417,7 +438,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 17,
@@ -436,7 +458,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "10K 75,000원 / 20.18K 100,000원 / 44K 125,000원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 18,
@@ -455,7 +478,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "전 종목(5km·10km·하프) 5만원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 19,
@@ -474,7 +498,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "전 종목 동일 25,000원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 154,
@@ -493,7 +518,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 20,
@@ -512,7 +538,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "평일 23,000원 / 주말 25,000원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 21,
@@ -531,7 +558,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "매니아 패키지 68,000원 / 일반 패키지(기념품 포함) 125,000원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 22,
@@ -550,7 +578,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 23,
@@ -569,7 +598,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "전 종목 동일 50,000원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 24,
@@ -588,7 +618,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 25,
@@ -607,7 +638,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 26,
@@ -626,7 +658,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "10km·5km 동일 50,000원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 27,
@@ -645,7 +678,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": "선착순 300명"
+"capacityInfo": "선착순 300명",
+"dateUncertain": false
 },
 {
 "id": 155,
@@ -664,7 +698,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 28,
@@ -683,7 +718,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "하프 일반 5만원·마니아 4만원 / 10km 일반 5만원·마니아 4만원 / 5km 일반 4만원·마니아 3만원 / 3km 가족런 3만원(3~5인)",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 29,
@@ -702,7 +738,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "5km 30,000원(티셔츠형)·79,000원(신발형) / 10km 45,000원(티셔츠형)·79,000원(신발형)",
-"capacityInfo": "선착순 3,000명(5km 1,000명·10km 2,000명)"
+"capacityInfo": "선착순 3,000명(5km 1,000명·10km 2,000명)",
+"dateUncertain": false
 },
 {
 "id": 30,
@@ -721,7 +758,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 31,
@@ -740,7 +778,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "전 종목(5km·10km·하프) 5만원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 32,
@@ -759,7 +798,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 33,
@@ -778,7 +818,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "5km 2만원 / 10km·하프 3.5만원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 34,
@@ -797,7 +838,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "4km 4만원 / 8km 5만원",
-"capacityInfo": "부문별 선착순 1,000명"
+"capacityInfo": "부문별 선착순 1,000명",
+"dateUncertain": false
 },
 {
 "id": 35,
@@ -816,7 +858,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "30K 11.9만원 / 20K 9.9만원 / 12K 7.9만원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 36,
@@ -835,7 +878,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "하프·10km 4.5만원 / 5km 3만원 / 3km 2.5만원(어린이 1만원)",
-"capacityInfo": "선착순 5,000명"
+"capacityInfo": "선착순 5,000명",
+"dateUncertain": false
 },
 {
 "id": 37,
@@ -854,7 +898,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 38,
@@ -873,7 +918,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "10km 50,000원 / 4.2km·걷기 45,000원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 39,
@@ -892,7 +938,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 40,
@@ -911,7 +958,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 41,
@@ -930,7 +978,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "Half 50,000원 / 10km 45,000원 / 5km 40,000원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 156,
@@ -949,7 +998,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "5km 40,000원 / 10km 45,000원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 42,
@@ -968,7 +1018,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 43,
@@ -987,7 +1038,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "50,000원(기부금 3만원+대회비 2만원)",
-"capacityInfo": "선착순 6,500명"
+"capacityInfo": "선착순 6,500명",
+"dateUncertain": false
 },
 {
 "id": 44,
@@ -1006,7 +1058,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "하프 50,000원 / 10km 40,000원 / 5km 35,000원",
-"capacityInfo": "선착순 10,000명"
+"capacityInfo": "선착순 10,000명",
+"dateUncertain": false
 },
 {
 "id": 45,
@@ -1025,7 +1078,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "하프 45,000원 / 10km 45,000원 / 5km 40,000원 / 커플런(10km) 80,000원(2인)",
-"capacityInfo": "선착순 3,000명"
+"capacityInfo": "선착순 3,000명",
+"dateUncertain": false
 },
 {
 "id": 46,
@@ -1044,7 +1098,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "하프·10km 4만원 / 5km 3.5만원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 47,
@@ -1063,7 +1118,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 48,
@@ -1082,7 +1138,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "5km·10km 동일 35,000원",
-"capacityInfo": "선착순 900명"
+"capacityInfo": "선착순 900명",
+"dateUncertain": false
 },
 {
 "id": 157,
@@ -1101,7 +1158,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "하프·10km 5만원 / 5km·걷기 4만5천원",
-"capacityInfo": "선착순 7,000명"
+"capacityInfo": "선착순 7,000명",
+"dateUncertain": false
 },
 {
 "id": 49,
@@ -1120,7 +1178,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 50,
@@ -1139,7 +1198,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "5km 35,000원 / 10km 50,000원 / 하프 50,000원",
-"capacityInfo": "5km 1,000명 / 10km 1,500명 / 하프 500명(선착순)"
+"capacityInfo": "5km 1,000명 / 10km 1,500명 / 하프 500명(선착순)",
+"dateUncertain": false
 },
 {
 "id": 51,
@@ -1158,7 +1218,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "5km 45,000원 / 10km 50,000원",
-"capacityInfo": "5km 1,000명 · 10km 3,500명(총 4,500명, 선착순)"
+"capacityInfo": "5km 1,000명 · 10km 3,500명(총 4,500명, 선착순)",
+"dateUncertain": false
 },
 {
 "id": 52,
@@ -1177,7 +1238,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 53,
@@ -1196,7 +1258,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "RUN PACKAGE 69,000원 / RUN&FIT PACKAGE 89,000원",
-"capacityInfo": "선착순 3,000명(얼리 패스)"
+"capacityInfo": "선착순 3,000명(얼리 패스)",
+"dateUncertain": false
 },
 {
 "id": 54,
@@ -1215,7 +1278,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "전 종목 동일 50,000원",
-"capacityInfo": "선착순 5,000명"
+"capacityInfo": "선착순 5,000명",
+"dateUncertain": false
 },
 {
 "id": 55,
@@ -1234,7 +1298,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "4km 일반 30,000원(금산군민 10,000원) / 10km 45,000원 / Half 45,000원",
-"capacityInfo": "선착순 3,000명"
+"capacityInfo": "선착순 3,000명",
+"dateUncertain": false
 },
 {
 "id": 56,
@@ -1253,7 +1318,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "10km·5km 동일 40,000원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 187,
@@ -1272,7 +1338,8 @@
 "regStartTime": null,
 "competitivenessNote": "베트남 산악 지대(사파)를 달리는 트레일 코스 - 최근 트레일러닝 인기와 맞물려 한국인 참가 증가 중",
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 57,
@@ -1291,7 +1358,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 58,
@@ -1310,7 +1378,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "6km·10km 전 코스 5만원",
-"capacityInfo": "선착순 3,000명"
+"capacityInfo": "선착순 3,000명",
+"dateUncertain": false
 },
 {
 "id": 59,
@@ -1329,7 +1398,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "5km 20,000원 / 10km 30,000원",
-"capacityInfo": "선착순 1,000명"
+"capacityInfo": "선착순 1,000명",
+"dateUncertain": false
 },
 {
 "id": 60,
@@ -1348,7 +1418,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 61,
@@ -1367,7 +1438,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": "선착순 2,000명 (직전 대회 기준)"
+"capacityInfo": "선착순 2,000명 (직전 대회 기준)",
+"dateUncertain": false
 },
 {
 "id": 62,
@@ -1386,7 +1458,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "5km 30,000원 / 10km 50,000원",
-"capacityInfo": "선착순 2,000명"
+"capacityInfo": "선착순 2,000명",
+"dateUncertain": false
 },
 {
 "id": 63,
@@ -1405,7 +1478,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "3만원",
-"capacityInfo": "총 2,800명 (강동구민 1,000명 + 일반 1,800명)"
+"capacityInfo": "총 2,800명 (강동구민 1,000명 + 일반 1,800명)",
+"dateUncertain": false
 },
 {
 "id": 64,
@@ -1424,7 +1498,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "하프·10km 40,000원 / 5km 건강달리기 25,000원",
-"capacityInfo": "선착순 6,000명"
+"capacityInfo": "선착순 6,000명",
+"dateUncertain": false
 },
 {
 "id": 158,
@@ -1443,7 +1518,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": "하프·10km·5km 합쳐 15,000명 (결제완료순 마감)"
+"capacityInfo": "하프·10km·5km 합쳐 15,000명 (결제완료순 마감)",
+"dateUncertain": false
 },
 {
 "id": 167,
@@ -1462,7 +1538,8 @@
 "regStartTime": null,
 "competitivenessNote": "정원 54,000명, WMM 공동 로터리 - 신청자 수 대비 정확한 배율은 비공개",
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 65,
@@ -1481,7 +1558,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 66,
@@ -1500,7 +1578,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "36K(개인) 110,000원·(4인 크루) 440,000원 / 22K(개인) 80,000원·(커플) 160,000원 / 7K 30,000원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 67,
@@ -1519,7 +1598,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "5km·10km·하프 전 종목 5만원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 68,
@@ -1538,7 +1618,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "10km 50,000원 / 5km 45,000원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 69,
@@ -1557,7 +1638,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "60km·44km 공통 60,000원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 70,
@@ -1576,7 +1658,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "5km 일반 25,000원(서산시민 20,000원) / 10km 45,000원 / Half 45,000원",
-"capacityInfo": "선착순 7,000명"
+"capacityInfo": "선착순 7,000명",
+"dateUncertain": false
 },
 {
 "id": 71,
@@ -1595,7 +1678,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 72,
@@ -1614,7 +1698,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "10km 40,000원 / 5km 30,000원 / 2km 가족트레킹 10,000원",
-"capacityInfo": "선착순 2,000명"
+"capacityInfo": "선착순 2,000명",
+"dateUncertain": false
 },
 {
 "id": 73,
@@ -1633,7 +1718,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": "선착순 8,000명"
+"capacityInfo": "선착순 8,000명",
+"dateUncertain": false
 },
 {
 "id": 74,
@@ -1652,7 +1738,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "Half 80,000원 / 10K 70,000원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 75,
@@ -1671,7 +1758,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": "약 7,000명"
+"capacityInfo": "약 7,000명",
+"dateUncertain": false
 },
 {
 "id": 76,
@@ -1690,7 +1778,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "하프 35,000원 / 10km 35,000원(마니아 25,000원, 기념품 미지급) / 5km 20,000원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 77,
@@ -1709,7 +1798,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 78,
@@ -1728,7 +1818,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "3만원~6만원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 79,
@@ -1747,7 +1838,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 80,
@@ -1766,7 +1858,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "하프·10km 50,000원 / 5km 45,000원",
-"capacityInfo": "선착순 3,000명"
+"capacityInfo": "선착순 3,000명",
+"dateUncertain": false
 },
 {
 "id": 81,
@@ -1785,7 +1878,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "3만원",
-"capacityInfo": "선착순 700명"
+"capacityInfo": "선착순 700명",
+"dateUncertain": false
 },
 {
 "id": 159,
@@ -1804,7 +1898,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "5km 50,000원 / 10km 60,000원 / 하프 70,000원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 82,
@@ -1823,7 +1918,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "하프 80,000원 / 10km 70,000원 / 5km 60,000원",
-"capacityInfo": "선착순 7,000명"
+"capacityInfo": "선착순 7,000명",
+"dateUncertain": false
 },
 {
 "id": 83,
@@ -1842,7 +1938,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "10km 4.5만원 / 5km 4만원 (사전 접수 기준)",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 84,
@@ -1861,7 +1958,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 85,
@@ -1880,7 +1978,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "하프·10km 3.5만원 / 5km 2만원",
-"capacityInfo": "선착순 5,000명"
+"capacityInfo": "선착순 5,000명",
+"dateUncertain": false
 },
 {
 "id": 86,
@@ -1899,7 +1998,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "하프 45,000원 / 10km 45,000원 / 5km 25,000원",
-"capacityInfo": "선착순 6,000명"
+"capacityInfo": "선착순 6,000명",
+"dateUncertain": false
 },
 {
 "id": 87,
@@ -1918,7 +2018,8 @@
 "regStartTime": "09:00",
 "competitivenessNote": null,
 "feeInfo": "성인 3만원 / 학생(초중고) 1만5천원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 88,
@@ -1937,7 +2038,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "10.9km 7.5만원 / 5.15km 5.5만원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 89,
@@ -1956,7 +2058,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "하프 69,000원 / 10km 59,000원 / 5km 59,000원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 90,
@@ -1975,7 +2078,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "30km·하프 40,000원 / 10km·5km 20,000원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 91,
@@ -1994,7 +2098,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "10km 5만원 / 5km 4.5만원 / 3km 패밀리런 3만원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 92,
@@ -2013,7 +2118,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": "선착순 6,000명"
+"capacityInfo": "선착순 6,000명",
+"dateUncertain": false
 },
 {
 "id": 93,
@@ -2032,7 +2138,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "3만원~4만원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 94,
@@ -2051,7 +2158,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 95,
@@ -2070,7 +2178,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "5K 40,000원 / 10K 45,000원",
-"capacityInfo": "선착순 1,500명"
+"capacityInfo": "선착순 1,500명",
+"dateUncertain": false
 },
 {
 "id": 96,
@@ -2089,7 +2198,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": "선착순 2,000명"
+"capacityInfo": "선착순 2,000명",
+"dateUncertain": false
 },
 {
 "id": 97,
@@ -2108,7 +2218,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "10km·5km 동일 50,000원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 98,
@@ -2127,7 +2238,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "60km 80,000원 / 100km 100,000원(울트라) / 하프·10km·5km 40,000원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 99,
@@ -2146,7 +2258,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "하프 80,000원 / 11km 70,000원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 100,
@@ -2165,7 +2278,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "풀·하프·10km 4만원 / 5km 2만원 / 단체전 12만원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 101,
@@ -2184,7 +2298,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 102,
@@ -2203,7 +2318,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "하프 40,000원 / 10km 35,000원 / 5km 30,000원",
-"capacityInfo": "선착순 8,000명"
+"capacityInfo": "선착순 8,000명",
+"dateUncertain": false
 },
 {
 "id": 103,
@@ -2222,7 +2338,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "Half 40,000원 / 10km 40,000원 / 5km 25,000원",
-"capacityInfo": "선착순 5,000명"
+"capacityInfo": "선착순 5,000명",
+"dateUncertain": false
 },
 {
 "id": 104,
@@ -2241,7 +2358,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": "5,000명"
+"capacityInfo": "5,000명",
+"dateUncertain": false
 },
 {
 "id": 105,
@@ -2260,7 +2378,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "하프 45,000원 / 10km 40,000원 / 5km 35,000원",
-"capacityInfo": "선착순 약 10,000~11,000명"
+"capacityInfo": "선착순 약 10,000~11,000명",
+"dateUncertain": false
 },
 {
 "id": 166,
@@ -2279,7 +2398,8 @@
 "regStartTime": null,
 "competitivenessNote": "2024년 12만 명 이상 신청에 정원 5만 명 - 경쟁률 약 2.4:1",
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 106,
@@ -2298,7 +2418,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 107,
@@ -2317,7 +2438,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "풀코스 일반 7만원·매니아 6만원 / 하프 일반 6만원·매니아 5만원 / 10km 일반 5만원·매니아 4만원",
-"capacityInfo": "일반 9,000명 · 매니아 7,000명"
+"capacityInfo": "일반 9,000명 · 매니아 7,000명",
+"dateUncertain": false
 },
 {
 "id": 108,
@@ -2336,7 +2458,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 109,
@@ -2355,7 +2478,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "하프·10km 40,000원(얼리버드 35,000원) / 5km 35,000원(얼리버드 30,000원)",
-"capacityInfo": "선착순 2,000명"
+"capacityInfo": "선착순 2,000명",
+"dateUncertain": false
 },
 {
 "id": 110,
@@ -2374,7 +2498,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 111,
@@ -2393,7 +2518,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "5km·10km·하프 전 종목 5만원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 112,
@@ -2412,7 +2538,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "10.19km 35,000원 / 5km 20,000원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 113,
@@ -2431,7 +2558,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": "선착순 100명"
+"capacityInfo": "선착순 100명",
+"dateUncertain": false
 },
 {
 "id": 114,
@@ -2450,7 +2578,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "5만원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 115,
@@ -2469,7 +2598,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "6만원",
-"capacityInfo": "선착순 10,000명"
+"capacityInfo": "선착순 10,000명",
+"dateUncertain": false
 },
 {
 "id": 116,
@@ -2488,7 +2618,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "하프 45,000원 / 10km 45,000원 / 5km 20,000원",
-"capacityInfo": "선착순 2,000명"
+"capacityInfo": "선착순 2,000명",
+"dateUncertain": false
 },
 {
 "id": 117,
@@ -2507,7 +2638,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "10km 2만5천원 / 5km 1만5천원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 118,
@@ -2526,7 +2658,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "하프 3.5만원 · 10km 3.5만원 · 5km 2만원 (직전 제24회 기준)",
-"capacityInfo": "하프 선착순 500명 · 10km 선착순 1,500명 · 5km 선착순 1,000명 (직전 제24회 기준)"
+"capacityInfo": "하프 선착순 500명 · 10km 선착순 1,500명 · 5km 선착순 1,000명 (직전 제24회 기준)",
+"dateUncertain": false
 },
 {
 "id": 119,
@@ -2545,7 +2678,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "하프 4.5만원 / 10km 4.5만원 / 4km 2.5만원(여주시민 2만원)",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 120,
@@ -2564,7 +2698,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 121,
@@ -2583,7 +2718,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "10km 60,000원 / 5km 50,000원(콘서트 결합 패스는 별도)",
-"capacityInfo": "선착순 5,000명"
+"capacityInfo": "선착순 5,000명",
+"dateUncertain": false
 },
 {
 "id": 122,
@@ -2602,7 +2738,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "10km·5km 동일 50,000원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 123,
@@ -2621,7 +2758,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "10km 40,000원 / 6.4km 35,000원",
-"capacityInfo": "선착순 약 1,500~2,500명"
+"capacityInfo": "선착순 약 1,500~2,500명",
+"dateUncertain": false
 },
 {
 "id": 124,
@@ -2640,7 +2778,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "전 종목(5km·10km) 동일 50,000원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 125,
@@ -2659,7 +2798,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 126,
@@ -2678,7 +2818,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": "4,000명"
+"capacityInfo": "4,000명",
+"dateUncertain": false
 },
 {
 "id": 127,
@@ -2697,7 +2838,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "하프·10km 4.5만원 / 5km 건강달리기 3만원 / 5km 커플런 3.5만원 / 5km 가족런 1인당 2만원",
-"capacityInfo": "선착순 8,000명"
+"capacityInfo": "선착순 8,000명",
+"dateUncertain": false
 },
 {
 "id": 128,
@@ -2716,7 +2858,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "10km 5만원(골드패키지 8.9만원) / 5km 4만원(골드패키지 7.9만원) (직전 대회 기준)",
-"capacityInfo": "선착순 10,000명 (직전 대회 기준)"
+"capacityInfo": "선착순 10,000명 (직전 대회 기준)",
+"dateUncertain": false
 },
 {
 "id": 129,
@@ -2735,7 +2878,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "산악 Half·10km 50,000원 / 5km 30,000원",
-"capacityInfo": "선착순 3,000명"
+"capacityInfo": "선착순 3,000명",
+"dateUncertain": false
 },
 {
 "id": 130,
@@ -2754,7 +2898,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "하프 6만원(마니아 5만원) / 10km 5.5만원(마니아 4.5만원) / 5km 4만원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 131,
@@ -2773,7 +2918,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "하프·10km 40,000~45,000원(학생 20,000원) / 5.9km 20,000~25,000원",
-"capacityInfo": "선착순 3,000명"
+"capacityInfo": "선착순 3,000명",
+"dateUncertain": false
 },
 {
 "id": 162,
@@ -2792,7 +2938,8 @@
 "regStartTime": null,
 "competitivenessNote": "조선멤버십 얼리버드 사전신청권(1000장) 3분 마감. 일반 접수도 선착순이라 오픈 시각(초 단위)까지 미리 준비 필요",
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 132,
@@ -2811,7 +2958,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "하프·10km 35,000원 / 5km·가족런 30,000원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 133,
@@ -2830,7 +2978,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "5km 일반 25,000원(무안군민 15,000원) / 10km 일반 40,000원(매니아 30,000원)",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 134,
@@ -2849,7 +2998,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 135,
@@ -2868,7 +3018,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 136,
@@ -2887,7 +3038,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": "선착순 5,500명"
+"capacityInfo": "선착순 5,500명",
+"dateUncertain": false
 },
 {
 "id": 161,
@@ -2906,7 +3058,8 @@
 "regStartTime": null,
 "competitivenessNote": "2025년 본접수 역대 최다 신청 - 풀코스·10K 모두 10분 이내 마감. 단 2026년부터는 추첨(래플) 방식이라 '빨리'보다 '기간 내' 신청이 핵심",
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 165,
@@ -2925,7 +3078,8 @@
 "regStartTime": null,
 "competitivenessNote": "역대 최다 24만 명 이상 응모 (3개 지역 풀로 나눠 추첨, 정확한 배율은 비공개)",
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 137,
@@ -2944,7 +3098,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "5km 30,000원(부여군민 20,000원) / 10km 45,000원 / Half 45,000원 / Full 50,000원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 138,
@@ -2963,7 +3118,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 139,
@@ -2982,7 +3138,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "10km 50,000원 / 5km 30,000원",
-"capacityInfo": "선착순 약 5,000~7,000명"
+"capacityInfo": "선착순 약 5,000~7,000명",
+"dateUncertain": false
 },
 {
 "id": 140,
@@ -3001,7 +3158,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "5km 20,000원 / 10km 40,000원 / 하프 40,000원",
-"capacityInfo": "선착순 3,000명"
+"capacityInfo": "선착순 3,000명",
+"dateUncertain": false
 },
 {
 "id": 141,
@@ -3020,7 +3178,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "하프 45,000원 / 10km 40,000원 / 5km 30,000원(과천시민 25,000원)",
-"capacityInfo": "선착순 3,000명"
+"capacityInfo": "선착순 3,000명",
+"dateUncertain": false
 },
 {
 "id": 142,
@@ -3039,7 +3198,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "10km 50,000원 / 5km 40,000원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 143,
@@ -3058,7 +3218,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "하프·10km 35,000원(매니아 25,000원) / 5km 10,000원",
-"capacityInfo": "선착순 3,500명"
+"capacityInfo": "선착순 3,500명",
+"dateUncertain": false
 },
 {
 "id": 144,
@@ -3077,7 +3238,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "산악 28km 85,000원 / 산악 17km 65,000원 / 임도숲길 18km 45,000원 / 임도숲길 10km 40,000원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 145,
@@ -3096,7 +3258,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "15km 약 60,000원 ~ 109km 280,000원(50km 약 160,000원)",
-"capacityInfo": "코스별 500명 · 700명(선착순)"
+"capacityInfo": "코스별 500명 · 700명(선착순)",
+"dateUncertain": false
 },
 {
 "id": 146,
@@ -3115,7 +3278,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 147,
@@ -3134,7 +3298,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "하프 40,000원 / 10km 40,000원 / 5km 30,000원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 148,
@@ -3153,7 +3318,8 @@
 "regStartTime": null,
 "competitivenessNote": null,
 "feeInfo": "10km·5km 동일 50,000원",
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 185,
@@ -3172,7 +3338,8 @@
 "regStartTime": null,
 "competitivenessNote": "고대 마라톤 전투 경로를 그대로 달리는 '원조' 마라톤 - 완주 자체에 상징적 의미가 커 버킷리스트로 꼽힘",
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 175,
@@ -3191,7 +3358,8 @@
 "regStartTime": null,
 "competitivenessNote": "앙코르와트 유적 사이를 달리는 이색 코스로 여행 겸 참가 인기",
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 184,
@@ -3210,7 +3378,8 @@
 "regStartTime": null,
 "competitivenessNote": "동남아 대표 대회, 야간 무더위 속 진행되는 것으로 유명 - 접근성 좋아 한국인 참가 여행 상품 다수",
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 173,
@@ -3229,7 +3398,8 @@
 "regStartTime": null,
 "competitivenessNote": "시간제한 없는 완주 중심 대회, 선착순 접수라 마감 부담 적음",
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 178,
@@ -3248,7 +3418,8 @@
 "regStartTime": null,
 "competitivenessNote": "World Athletics 플래티넘 라벨 대회, 정원 약 3만 명 규모의 중국 대표 마라톤",
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 183,
@@ -3267,7 +3438,8 @@
 "regStartTime": null,
 "competitivenessNote": "아시아 대표 대회 중 하나 - 홍콩 도심·터널 구간을 달리는 코스로 유명, 추첨제",
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 186,
@@ -3286,7 +3458,8 @@
 "regStartTime": null,
 "competitivenessNote": "일본 마쓰야마 세토내해 해안선을 도는 코스로 현지 인기가 높은 지방 대표 대회",
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 171,
@@ -3305,7 +3478,8 @@
 "regStartTime": null,
 "competitivenessNote": "교토 시내 명소를 도는 코스로 인기, 추첨제",
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 170,
@@ -3324,7 +3498,8 @@
 "regStartTime": null,
 "competitivenessNote": "일본 3대 인기 마라톤 중 하나로 꼽히며 추첨제로 진행",
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 182,
@@ -3343,7 +3518,8 @@
 "regStartTime": null,
 "competitivenessNote": "한국인 참가 비중이 높은 대회(약 37%)로 알려짐 - 매년 3월 첫째 주 토요일 개최 패턴, 2027년 정확한 날짜는 공식 사이트에서 재확인 필요",
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": true
 },
 {
 "id": 164,
@@ -3362,7 +3538,8 @@
 "regStartTime": null,
 "competitivenessNote": "일반추첨 경쟁률 약 10:1 (30만 명 신청에 3만 명 선발)",
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 172,
@@ -3381,7 +3558,8 @@
 "regStartTime": null,
 "competitivenessNote": "여성 전용 마라톤 - 완주 시 티파니 목걸이 부상으로 유명",
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 160,
@@ -3400,7 +3578,8 @@
 "regStartTime": null,
 "competitivenessNote": "그룹별(우선접수/골드패키지/일반) 순차 오픈 구조 - 그룹별 마감 속도가 달라 정확한 소요시간은 미확인, 앞 그룹일수록 조기마감 가능성 높음",
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 174,
@@ -3419,7 +3598,8 @@
 "regStartTime": null,
 "competitivenessNote": "해변 휴양지 다낭에서 열려 가족 여행 겸 참가하는 한국인 많음",
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 163,
@@ -3438,7 +3618,8 @@
 "regStartTime": null,
 "competitivenessNote": "자격기록(BQ) 충족자도 정원 초과 시 랜덤 탈락 가능. 2027년부터 컷오프를 살짝 놓친 주자를 위한 신규 '랜덤 선발' 트랙 약 1,000자리 신설",
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 168,
@@ -3457,7 +3638,8 @@
 "regStartTime": null,
 "competitivenessNote": "2026년 밸럿에 113만 명 이상 응모(역대 최고) - 일반 자리 약 1.7만 개, 당첨확률 약 1.5%(66명 중 1명) - 6대 메이저 중 가장 낮은 당첨률",
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 179,
@@ -3476,7 +3658,8 @@
 "regStartTime": null,
 "competitivenessNote": "세계에서 가장 아름다운 코스로 꼽히는 대회 중 하나 (RunCzech 시리즈)",
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 181,
@@ -3495,7 +3678,8 @@
 "regStartTime": null,
 "competitivenessNote": "만리장성 위 5,164개 계단을 달리는 이색 코스로 유명, 여행 패키지 형태 참가가 일반적 (공식 사이트 확인 - 2027년 5월 15일 예정)",
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 177,
@@ -3514,7 +3698,8 @@
 "regStartTime": null,
 "competitivenessNote": "월드마라톤메이저스(WMM) 신규 편입 대회로 주목받는 중",
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 176,
@@ -3533,7 +3718,8 @@
 "regStartTime": null,
 "competitivenessNote": "리조트 단지 내 코스, 무더위 속 진행되는 이색 완주 경험",
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 169,
@@ -3552,7 +3738,8 @@
 "regStartTime": null,
 "competitivenessNote": "2025년 월드마라톤메이저스(WMM) 7번째 정식 멤버로 승격된 최신 메이저 대회",
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 },
 {
 "id": 180,
@@ -3571,7 +3758,8 @@
 "regStartTime": null,
 "competitivenessNote": "세계에서 가장 빠른 코스로 꼽혀 기록 경신 목적 참가자가 많고 매년 조기 마감",
 "feeInfo": null,
-"capacityInfo": null
+"capacityInfo": null,
+"dateUncertain": false
 }
 ]
 }

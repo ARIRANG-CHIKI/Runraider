@@ -166,7 +166,7 @@ function renderList() {
   listEl.innerHTML = filtered.slice(0, visibleCount).map(x => `
     <a class="race-item" href="race.html?id=${x.id}">
       <div>
-        <div class="race-name">${x.tier === "Tier1" ? '<span class="tier1-badge">Tier1</span>' : ""}${x.name}</div>
+        <div class="race-name">${x.tier === "Tier1" ? '<span class="tier1-badge">Tier1</span>' : ""}${x.dateUncertain ? '<span class="uncertain-badge">⚠️ 일정 미확정</span>' : ""}${x.name}</div>
         <div class="race-meta">${x.date} · ${x.region} · ${x.distances}</div>
         ${x.competitivenessNote ? `<div class="competitiveness-note">🔥 ${x.competitivenessNote}</div>` : ""}
       </div>
