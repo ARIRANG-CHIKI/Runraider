@@ -133,6 +133,12 @@ tier2_overseas = [
     ("발렌시아 마라톤", "2027-12-05", "해외", None, "Valencia Ciudad del Running", "접수전",
      "https://www.valenciaciudaddelrunning.com/en/", ["풀코스"],
      "세계에서 가장 빠른 코스로 꼽혀 기록 경신 목적 참가자가 많고 매년 조기 마감"),
+    ("만리장성 마라톤", "2027-05-15", "해외", None, "Great Wall Marathon", "접수전",
+     "https://great-wall-marathon.com/", ["풀코스"],
+     "만리장성 위 5,164개 계단을 달리는 이색 코스로 유명, 여행 패키지 형태 참가가 일반적 (공식 사이트 확인 - 2027년 5월 15일 예정)"),
+    ("사이판 마라톤", "2027-03-06", "해외", None, "Marianas Visitors Authority", "접수전",
+     "https://www.mymarianas.com/saipan-marathon/", ["풀코스", "하프"],
+     "한국인 참가 비중이 높은 대회(약 37%)로 알려짐 - 매년 3월 첫째 주 토요일 개최 패턴, 2027년 정확한 날짜는 공식 사이트에서 재확인 필요"),
 ]
 for name, dt, region, loc, host, status, url, dists, comp_note in tier2_overseas:
     cur.execute("""INSERT INTO races (race_name, race_date, region, location_detail, host_org,
