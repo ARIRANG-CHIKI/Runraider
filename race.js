@@ -42,7 +42,7 @@ Promise.all([
 
   const res = resources[race.name];
   const dday = daysBetween(race.date, today);
-  const ddayLine = dday >= 0 ? `대회까지 ${fmtDday(dday)}` : `${-dday}일 전에 종료된 대회`;
+  const ddayLabel = dday >= 0 ? fmtDday(dday) : `종료 D+${-dday}`;
 
   const distPills = race.distances.split(",").map(d => d.trim()).filter(Boolean)
     .map(d => `<span class="dist-pill">${d}</span>`).join("");
@@ -53,11 +53,12 @@ Promise.all([
         <div class="detail-head">
           <div>
             <div class="race-name-lg">${race.tier === "Tier1" ? '<span class="tier1-badge">Tier1</span>' : ""}${race.dateUncertain ? '<span class="uncertain-badge">⚠️ 일정 미확정</span>' : ""}${race.name}</div>
-            <div class="detail-meta">${race.date} · ${ddayLine}</div>
+            <div class="detail-meta">${race.date}</div>
           </div>
           <span class="status-badge ${statusClass(race.status)}">${race.status}</span>
         </div>
         <div class="dist-pills">${distPills}</div>
+        <div class="detail-dday">${ddayLabel}</div>
         <button id="detail-fav-btn" class="fav-btn detail-fav-btn${isFavorite(race.id) ? " fav-active" : ""}" type="button">${isFavorite(race.id) ? "★ 찜한 대회" : "☆ 찜하기"}</button>
       </div>
 
