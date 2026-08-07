@@ -6,4 +6,4 @@
   directory = "netlify/functions"
 
 [functions."check-deadlines"]
-  schedule = "0 22 * * *"
+  schedule = "0 1,5,8 * * *"

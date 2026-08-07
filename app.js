@@ -47,6 +47,26 @@ function renderFavorites() {
     </a>`).join("");
 }
 
+function renderVisitDeadlineAlert() {
+  const favs = getFavorites();
+  const section = document.getElementById("visit-deadline-alert");
+  const list = document.getElementById("visit-deadline-list");
+  if (!section || !list) return;
+
+  const closing = allRaces
+    .filter(x => favs.includes(x.id) && x.status === "접수중" && x.regEnd)
+    .map(x => ({ ...x, dday: daysBetween(x.regEnd) }))
+    .filter(x => x.dday >= 0 && x.dday <= 3);
+
+  if (!closing.length) { section.hidden = true; return; }
+  section.hidden = false;
+  list.innerHTML = closing.map(x => `
+    <a class="urgency-item" href="race.html?id=${x.id}">
+      <div><div class="urgency-name">${x.name}</div><div class="urgency-sub">${x.date} · ~${x.regEnd} 마감</div></div>
+      <span class="dday-badge dday-close">${fmtDday(x.dday)}</span>
+    </a>`).join("");
+}
+
 function renderRecommendations() {
   const favs = getFavorites();
   const section = document.getElementById("reco-section");
@@ -317,6 +337,7 @@ fetch("data.json")
     renderUrgency();
     renderStats();
     renderFavorites();
+    renderVisitDeadlineAlert();
     renderRecommendations();
     populateRegionFilter();
     attachEvents();
