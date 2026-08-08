@@ -5,5 +5,8 @@
 [functions]
   directory = "netlify/functions"
 
+# ⚠️ 임시 패치 (2026-08-07 적용): Netlify 크레딧 소진으로 마감임박 알림 체크 기능을
+# 완전히 꺼둠 (schedule 자체를 제거). 함수 파일은 그대로 있어서 나중에 아래 schedule
+# 줄만 다시 넣으면 복구됨. 재활성화 조건: 크레딧 리셋(8/28) 또는 플랜 업그레이드 후.
 [functions."check-deadlines"]
-  schedule = "0 1,5,8 * * *"
+#  schedule = "0 1,5,8 * * *"
