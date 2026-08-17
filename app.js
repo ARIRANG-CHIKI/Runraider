@@ -185,11 +185,13 @@ function renderList() {
   const listEl = document.getElementById("race-list");
   listEl.innerHTML = filtered.slice(0, visibleCount).map(x => `
     <a class="race-item${x.competitivenessNote ? " urgent" : ""}" href="race.html?id=${x.id}">
+      <span class="race-date">${x.date}</span>
       <div>
         <div class="race-name">${x.tier === "Tier1" ? '<span class="tier1-badge">Tier1</span>' : ""}${x.dateUncertain ? '<span class="uncertain-badge">⚠️ 일정 미확정</span>' : ""}${x.name}</div>
-        <div class="race-meta">${x.date} · ${x.region} · ${x.distances}</div>
+        <div class="race-meta">${x.region}</div>
         ${x.competitivenessNote ? `<div class="competitiveness-note">🔥 ${x.competitivenessNote}</div>` : ""}
       </div>
+      <span class="race-dist">${x.distances}</span>
       <div class="race-item-right">
         ${favButton(x.id)}
         <span class="status-badge ${statusClass(x.status)}">${x.status}</span>
