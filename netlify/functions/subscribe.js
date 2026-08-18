@@ -20,7 +20,7 @@ exports.handler = async (event) => {
     return { statusCode: 405, body: "Method Not Allowed" };
   }
   try {
-    const { subscription, favoriteIds, mutedIds, email } = JSON.parse(event.body);
+    const { subscription, favoriteIds, mutedIds, email, notifyHours } = JSON.parse(event.body);
     if (!subscription || !subscription.endpoint) {
       return { statusCode: 400, body: "구독 정보가 없습니다." };
     }
@@ -31,7 +31,8 @@ exports.handler = async (event) => {
       subscription,
       favoriteIds: favoriteIds || [],
       mutedIds: mutedIds || [],
-      email: email || null,
+      email: email !== undefined ? email : (existing.email || null),
+      notifyHours: notifyHours && notifyHours.length ? notifyHours : (existing.notifyHours || [10, 14, 17]),
       seenRaceIds: existing.seenRaceIds || [],
       updatedAt: new Date().toISOString()
     });

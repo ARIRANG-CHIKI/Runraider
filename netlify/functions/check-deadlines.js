@@ -32,10 +32,15 @@ async function sendEmail(to, subject, html) {
   });
 }
 
+// 스케줄이 UTC 1/5/8시에 도는데, 사용자에게는 KST 10/14/17시로 표시함 (KST = UTC+9)
+const UTC_TO_KST_SLOT = { 1: 10, 5: 14, 8: 17 };
+
 exports.handler = async () => {
   const dataRes = await fetch("https://runraiderv.netlify.app/data.json");
   const { races } = await dataRes.json();
   const raceById = Object.fromEntries(races.map(r => [r.id, r]));
+
+  const currentSlot = UTC_TO_KST_SLOT[new Date().getUTCHours()];
 
   const store = getStore("push-subscriptions");
   const { blobs } = await store.list();
@@ -44,7 +49,9 @@ exports.handler = async () => {
   for (const b of blobs) {
     const entry = await store.get(b.key, { type: "json" });
     if (!entry) continue;
-    const { subscription, favoriteIds, email } = entry;
+    const { subscription, favoriteIds, email, notifyHours } = entry;
+
+    if (currentSlot && notifyHours && notifyHours.length && !notifyHours.includes(currentSlot)) continue;
 
     const closing = (favoriteIds || [])
       .map(id => raceById[id])

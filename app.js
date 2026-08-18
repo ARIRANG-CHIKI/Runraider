@@ -262,6 +262,33 @@ function urlBase64ToUint8Array(base64String) {
   return Uint8Array.from([...raw].map(c => c.charCodeAt(0)));
 }
 
+const NOTIFY_HOURS_KEY = "runraider_notify_hours";
+function getSelectedNotifyHours() {
+  const boxes = document.querySelectorAll(".notify-hour-chk");
+  const hours = [...boxes].filter(b => b.checked).map(b => Number(b.value));
+  return hours.length ? hours : [10, 14, 17];
+}
+function restoreNotifyHours() {
+  const saved = JSON.parse(localStorage.getItem(NOTIFY_HOURS_KEY) || "null");
+  if (!saved) return;
+  document.querySelectorAll(".notify-hour-chk").forEach(b => {
+    b.checked = saved.includes(Number(b.value));
+  });
+}
+async function updateNotifyHours() {
+  const hours = getSelectedNotifyHours();
+  localStorage.setItem(NOTIFY_HOURS_KEY, JSON.stringify(hours));
+  const sub = await getExistingPushSubscription();
+  if (!sub) return;
+  await fetch("/.netlify/functions/subscribe", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ subscription: sub, favoriteIds: getFavorites(), notifyHours: hours })
+  });
+}
+document.querySelectorAll(".notify-hour-chk").forEach(b => b.addEventListener("change", updateNotifyHours));
+restoreNotifyHours();
+
 async function enablePushNotifications() {
   if (!("serviceWorker" in navigator) || !("PushManager" in window)) {
     alert("이 브라우저는 알림 기능을 지원하지 않아요.");
@@ -286,7 +313,7 @@ async function enablePushNotifications() {
   await fetch("/.netlify/functions/subscribe", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ subscription: sub, favoriteIds: getFavorites(), email })
+    body: JSON.stringify({ subscription: sub, favoriteIds: getFavorites(), email, notifyHours: getSelectedNotifyHours() })
   });
 
   const btn = document.getElementById("f-notify-btn");
