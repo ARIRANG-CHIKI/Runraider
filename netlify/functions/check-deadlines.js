@@ -1,6 +1,6 @@
 // 스케줄 함수: 찜한 대회 마감임박 체크 후 웹푸시 + 이메일 발송
 // netlify.toml의 scheduled 설정으로 매일 1회 자동 실행됨
-const { getStore } = require("@netlify/blobs");
+const { getSubStore } = require("./_blobStore");
 const webpush = require("web-push");
 
 const VAPID_PUBLIC = process.env.VAPID_PUBLIC_KEY;
@@ -42,7 +42,7 @@ exports.handler = async () => {
 
   const currentSlot = UTC_TO_KST_SLOT[new Date().getUTCHours()];
 
-  const store = getStore("push-subscriptions");
+  const store = getSubStore();
   const { blobs } = await store.list();
 
   let notified = 0;

@@ -1,5 +1,5 @@
 // 웹푸시 구독 저장 (Netlify Blobs 사용, DB 없이 무료로 동작)
-const { getStore } = require("@netlify/blobs");
+const { getSubStore } = require("./_blobStore");
 
 exports.handler = async (event) => {
   if (event.httpMethod === "DELETE") {
@@ -8,7 +8,7 @@ exports.handler = async (event) => {
       if (!endpoint) {
         return { statusCode: 400, body: "endpoint가 없습니다." };
       }
-      const store = getStore("push-subscriptions");
+      const store = getSubStore();
       const key = Buffer.from(endpoint).toString("base64").slice(0, 60);
       await store.delete(key);
       return { statusCode: 200, body: JSON.stringify({ ok: true }) };
@@ -24,7 +24,7 @@ exports.handler = async (event) => {
     if (!subscription || !subscription.endpoint) {
       return { statusCode: 400, body: "구독 정보가 없습니다." };
     }
-    const store = getStore("push-subscriptions");
+    const store = getSubStore();
     const key = Buffer.from(subscription.endpoint).toString("base64").slice(0, 60);
     const existing = await store.get(key, { type: "json" }) || {};
     await store.setJSON(key, {

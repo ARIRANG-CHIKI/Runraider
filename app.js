@@ -310,11 +310,17 @@ async function enablePushNotifications() {
     email = null;
   }
 
-  await fetch("/.netlify/functions/subscribe", {
+  const res = await fetch("/.netlify/functions/subscribe", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ subscription: sub, favoriteIds: getFavorites(), email, notifyHours: getSelectedNotifyHours() })
   });
+
+  if (!res.ok) {
+    alert("알림 구독 저장에 실패했어요. 잠시 후 다시 시도해주세요.");
+    await sub.unsubscribe().catch(() => {});
+    return;
+  }
 
   const btn = document.getElementById("f-notify-btn");
   if (btn) { btn.textContent = email ? "🔔 알림 켜짐 (푸시+이메일)" : "🔔 알림 켜짐"; btn.classList.add("active"); }
