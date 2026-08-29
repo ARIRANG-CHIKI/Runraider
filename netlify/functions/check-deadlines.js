@@ -62,9 +62,10 @@ exports.handler = async () => {
     if (closing.length === 0) continue;
 
     for (const race of closing) {
+      const ddayLabel = race.dday === 0 ? "오늘 마감" : `D-${race.dday} 마감임박`;
       const payload = JSON.stringify({
-        title: "런레이더 - 접수 마감 임박",
-        body: `찜한 대회 [${race.name}] 접수가 ${race.regEnd}에 마감돼요.`,
+        title: `런레이더 · ${ddayLabel}`,
+        body: `${race.name} · ${race.regEnd}`,
         url: `https://runraiderv.netlify.app/race.html?id=${race.id}`
       });
       try {

@@ -4,6 +4,8 @@ self.addEventListener("push", (event) => {
   const title = data.title || "런레이더";
   const options = {
     body: data.body || "찜한 대회에 새 소식이 있어요.",
+    icon: "/icon-192.png",
+    badge: "/icon-192.png",
     data: { url: data.url || "/", raceId: data.raceId || null }
   };
   event.waitUntil(self.registration.showNotification(title, options));
