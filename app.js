@@ -162,6 +162,12 @@ function statusClass(status) {
   return "status-" + status.replace(/\s/g, ".");
 }
 
+function isClosingSoon(x) {
+  if (x.status !== "접수중" || !x.regEnd) return false;
+  const dday = daysBetween(x.regEnd);
+  return dday >= 0 && dday <= 3;
+}
+
 function getFiltered() {
   const q = document.getElementById("f-search").value.trim().toLowerCase();
   const region = document.getElementById("f-region").value;
@@ -172,7 +178,7 @@ function getFiltered() {
   return allRaces.filter(x =>
     (!q || x.name.toLowerCase().includes(q)) &&
     (!region || x.region === region) &&
-    (!status || x.status === status) &&
+    (!status || (status === "마감직전" ? isClosingSoon(x) : x.status === status)) &&
     (!tier || x.tier === tier) &&
     (!favOnly || favs.includes(x.id))
   );
@@ -202,6 +208,16 @@ function renderList() {
   document.getElementById("load-more").hidden = filtered.length <= visibleCount;
 }
 
+async function syncFavoritesToServer() {
+  const sub = await getExistingPushSubscription();
+  if (!sub) return;
+  await fetch("/.netlify/functions/subscribe", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ subscription: sub, favoriteIds: getFavorites() })
+  });
+}
+
 function handleFavClick(e) {
   const btn = e.target.closest(".fav-btn");
   if (!btn) return;
@@ -210,6 +226,7 @@ function handleFavClick(e) {
   toggleFavorite(Number(btn.dataset.id));
   renderFavorites();
   renderList();
+  syncFavoritesToServer();
 }
 
 function attachEvents() {
