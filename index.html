@@ -85,16 +85,15 @@
         <option value="Tier2">Tier2 국내</option>
       </select>
       <button type="button" id="f-fav-only" class="fav-filter-chip" aria-pressed="false">⭐ 찜한 대회만</button>
-      <div class="notify-group">
-        <button type="button" id="f-notify-btn" class="fav-filter-chip">🔔 마감임박 알림 받기</button>
-        <div id="notify-hours" class="notify-hours">
-          <span class="notify-hours-label">받을 시간</span>
-          <label><input type="checkbox" class="notify-hour-chk" value="10" checked> 10시</label>
-          <label><input type="checkbox" class="notify-hour-chk" value="14" checked> 14시</label>
-          <label><input type="checkbox" class="notify-hour-chk" value="17" checked> 17시</label>
-        </div>
-      </div>
+      <button type="button" id="f-notify-btn" class="fav-filter-chip">🔔 마감임박 알림 받기</button>
     </section>
+
+    <div id="notify-hours" class="notify-hours">
+      <span class="notify-hours-label">알림 받을 시간</span>
+      <label><input type="checkbox" class="notify-hour-chk" value="10" checked> 10시</label>
+      <label><input type="checkbox" class="notify-hour-chk" value="14" checked> 14시</label>
+      <label><input type="checkbox" class="notify-hour-chk" value="17" checked> 17시</label>
+    </div>
 
     <p id="f-count" class="f-count"></p>
 
