@@ -101,6 +101,19 @@ def main():
               f"차단/네트워크 문제로 판단해 기존 CSV를 보존하고 실패 처리합니다.")
         raise SystemExit(1)
 
+    # 안전장치 2: 2026-08-30에 gorunning.kr 페이지 구조가 바뀌면서, 개수는 정상인데
+    # race_date/region/distance_labels가 전부 빈 값으로 나온 사고가 있었다 (파싱 로직이
+    # 더 이상 맞지 않는 셀렉터를 쓰고 있었음). 건수만 보는 안전장치로는 이걸 못 잡아서,
+    # 핵심 필드가 비어있는 비율도 같이 확인한다.
+    EMPTY_FIELD_THRESHOLD = 0.2
+    for field in ["race_date", "region", "distance_labels"]:
+        empty_ratio = sum(1 for r in all_records.values() if not r[field].strip()) / len(all_records)
+        if empty_ratio > EMPTY_FIELD_THRESHOLD:
+            print(f"경고: '{field}' 필드가 {empty_ratio:.0%}나 비어있습니다 (기준 {EMPTY_FIELD_THRESHOLD:.0%}). "
+                  f"gorunning.kr 페이지 구조가 바뀌어 파싱 로직이 안 맞을 가능성이 높습니다. "
+                  f"기존 CSV를 보존하고 실패 처리합니다.")
+            raise SystemExit(1)
+
     fieldnames = ["race_name", "race_date", "distance_labels", "region",
                   "location_detail", "host_org", "registration_status",
                   "source_url", "source", "tier"]
