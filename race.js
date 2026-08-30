@@ -40,6 +40,24 @@ Promise.all([
     return;
   }
 
+  document.title = `${race.name} (${race.date}) | 런레이더`;
+  let metaDesc = document.querySelector('meta[name="description"]');
+  if (!metaDesc) {
+    metaDesc = document.createElement("meta");
+    metaDesc.name = "description";
+    document.head.appendChild(metaDesc);
+  }
+  metaDesc.content = `${race.name} — ${race.date} · ${race.region}${race.place ? " " + race.place : ""} · 접수상태: ${race.status}. 접수기간, 코스 정보, 참가비 등 최신 확인 정보.`;
+
+  const canonicalUrl = `https://runraiderv.netlify.app/race.html?id=${race.id}`;
+  let canonical = document.querySelector('link[rel="canonical"]');
+  if (!canonical) {
+    canonical = document.createElement("link");
+    canonical.rel = "canonical";
+    document.head.appendChild(canonical);
+  }
+  canonical.href = canonicalUrl;
+
   const res = resources[race.name];
   const dday = daysBetween(race.date, today);
   const ddayLabel = dday >= 0 ? fmtDday(dday) : `종료 D+${-dday}`;
