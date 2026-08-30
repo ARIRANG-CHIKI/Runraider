@@ -70,7 +70,7 @@ Promise.all([
       <div class="detail-hero">
         <div class="detail-head">
           <div>
-            <div class="race-name-lg">${race.tier === "Tier1" ? '<span class="tier1-badge">Tier1</span>' : ""}${race.dateUncertain ? '<span class="uncertain-badge">⚠️ 일정 미확정</span>' : ""}${race.name}</div>
+            <h1 class="race-name-lg">${race.tier === "Tier1" ? '<span class="tier1-badge">Tier1</span>' : ""}${race.dateUncertain ? '<span class="uncertain-badge">⚠️ 일정 미확정</span>' : ""}${race.name}</h1>
             <div class="detail-meta">${race.date}</div>
           </div>
           <span class="status-badge ${statusClass(race.status)}">${race.status}</span>

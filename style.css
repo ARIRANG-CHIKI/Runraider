@@ -27,7 +27,7 @@ body { margin: 0; background: var(--page-bg); color: #2c2c2a; line-height: 1.5; 
 .site-header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 20px 0; }
 .brand { display: flex; align-items: center; gap: 12px; }
 .brand-mark { font-size: 32px; }
-.brand h1 { margin: 0; font-size: 20px; }
+.brand-title { margin: 0; font-size: 20px; font-weight: 700; }
 .brand-sub { font-size: 13px; color: var(--muted); font-weight: 400; }
 .tagline { margin: 2px 0 0; font-size: 13px; color: var(--muted); }
 
@@ -136,7 +136,7 @@ body { margin: 0; background: var(--page-bg); color: #2c2c2a; line-height: 1.5; 
 .detail-card { background: var(--surface); border: 1px solid var(--border); border-top: 2px solid var(--accent); border-radius: 14px; overflow: hidden; margin-bottom: 30px; }
 .detail-hero { padding: 24px 22px 20px; background: linear-gradient(120deg, var(--hero-from) 0%, var(--hero-to) 100%); }
 .detail-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
-.race-name-lg { font-family: "Gothic A1", -apple-system, sans-serif; font-weight: 900; font-size: 22px; letter-spacing: -0.01em; color: #fff; }
+.race-name-lg { margin: 0; font-family: "Gothic A1", -apple-system, sans-serif; font-weight: 900; font-size: 22px; letter-spacing: -0.01em; color: #fff; }
 .detail-meta { font-family: "IBM Plex Mono"; font-size: 13px; color: #d3f0ff; margin-top: 6px; font-weight: 600; }
 .detail-dday { display: inline-block; margin-top: 12px; background: var(--accent); color: #fff; font-size: 12.5px; font-weight: 800; padding: 5px 12px; border-radius: 20px; letter-spacing: -0.01em; }
 .dist-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }

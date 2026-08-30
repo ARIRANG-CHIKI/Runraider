@@ -10,3 +10,13 @@
 # 줄만 다시 넣으면 복구됨. 재활성화 조건: 크레딧 리셋(8/28) 또는 플랜 업그레이드 후.
 [functions."check-deadlines"]
 #  schedule = "0 1,5,8 * * *"
+
+# SEO: /race.html?id=N 요청을 대회별로 미리 만들어둔 정적 파일(races/N.html)로
+# 내부 rewrite. 주소창 URL은 그대로 유지되고(status 200), 기존 링크/사이트맵/
+# 알림에 박아둔 race.html?id=N 주소는 하나도 안 바뀜 - 크롤러가 자바스크립트
+# 실행 전에도 대회별 고유 title/description을 보게 하기 위함.
+[[redirects]]
+  from = "/race.html"
+  to = "/races/:id.html"
+  status = 200
+  query = {id = ":id"}

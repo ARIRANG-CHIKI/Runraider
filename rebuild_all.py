@@ -293,4 +293,38 @@ with open("sitemap.xml", "w", encoding="utf-8") as f:
     f.write("\n".join(sitemap_lines))
 print(f"sitemap.xml 저장 완료, {len(data)}건 URL 포함")
 
+# ---- 대회별 static HTML (SEO: 크롤러가 자바스크립트 실행 전에도
+# 대회별로 고유한 title/description/canonical을 보게 하기 위함) ----
+# netlify.toml의 리다이렉트 규칙이 /race.html?id=N 요청을 이 파일로 내부적으로
+# rewrite 해준다 (주소창 URL은 그대로 유지됨) - 기존 링크/사이트맵은 안 바뀜.
+import html as html_lib
+
+with open("race.html", encoding="utf-8") as f:
+    race_template = f.read()
+
+# 템플릿의 상대경로들을 절대경로로 바꿔야 races/ 하위 폴더에서도 정상 작동함
+race_template_abs = (race_template
+    .replace('href="icon-192.png"', 'href="/icon-192.png"')
+    .replace('href="style.css"', 'href="/style.css"')
+    .replace('href="index.html"', 'href="/index.html"')
+    .replace('src="race.js"', 'src="/race.js"'))
+
+os.makedirs("races", exist_ok=True)
+for r in data:
+    title = html_lib.escape(f'{r["name"]} ({r["date"]}) | 런레이더')
+    desc = html_lib.escape(
+        f'{r["name"]} — {r["date"]} · {r["region"]}{(" " + r["place"]) if r["place"] else ""} · '
+        f'접수상태: {r["status"]}. 접수기간, 코스 정보, 참가비 등 최신 확인 정보.'
+    )
+    canonical = f'https://runraider.co.kr/race.html?id={r["id"]}'
+    page = race_template_abs.replace(
+        "<title>대회 정보 | 런레이더</title>",
+        f'<title>{title}</title>\n'
+        f'<meta name="description" content="{desc}" />\n'
+        f'<link rel="canonical" href="{canonical}" />'
+    )
+    with open(f'races/{r["id"]}.html', "w", encoding="utf-8") as f:
+        f.write(page)
+print(f"races/*.html {len(data)}개 생성 완료")
+
 conn.close()
