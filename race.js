@@ -27,7 +27,7 @@ const params = new URLSearchParams(location.search);
 const id = Number(params.get("id"));
 
 Promise.all([
-  fetch("data.json").then(r => r.json()),
+  fetch("data.json", { cache: "no-cache" }).then(r => r.json()),
   fetch("resources.json").then(r => r.json()).catch(() => ({}))
 ]).then(([payload, resources]) => {
   const now = new Date();

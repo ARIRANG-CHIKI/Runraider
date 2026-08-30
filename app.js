@@ -379,7 +379,7 @@ getExistingPushSubscription().then(sub => {
   if (btn) { btn.textContent = "🔔 알림 켜짐"; btn.classList.add("active"); }
 });
 
-fetch("data.json")
+fetch("data.json", { cache: "no-cache" })
   .then(r => r.json())
   .then(payload => {
     const now = new Date();
