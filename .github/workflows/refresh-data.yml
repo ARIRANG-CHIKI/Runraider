@@ -12,13 +12,18 @@ name: 대회 데이터 자동 갱신
 # 2026-08-30: 크레딧 신중하게 쓰기 위해 9/28(다음 결제 주기 리셋)까지 주 1회로 낮춤.
 # 2026-08-30: generatedAt이 매번 오늘 날짜로 찍히도록 고쳐놔서, 실제 대회 데이터가
 # 하나도 안 바뀌어도 날짜 한 줄 때문에 매번 배포까지 가버리는 부작용이 생김. 그래서
-# "실제 대회 데이터(날짜 제외)가 진짜 바뀐 경우에만 커밋" 단계를 추가하고, 매일 도는
-# 걸로 다시 올림 - 정보 수집 자체는 매일 무료로 하고, 배포(=크레딧)는 진짜 변화가
-# 있을 때만 나가게 함.
+# "실제 대회 데이터(날짜 제외)가 진짜 바뀐 경우에만 커밋" 단계를 추가함.
+# 2026-08-30: 주 1회로 되돌리고, 변화가 있어도 main에 바로 안 올리도록 변경 -
+# auto-refresh-pending 브랜치에 올려두고 GitHub 이슈로 요약 보고만 함. 실제 배포는
+# 필립님이 확인하고 승인한 뒤 사람이 직접 main에 병합해야 나감 (배포 전 승인 원칙).
 on:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "0 0 * * 0"
   workflow_dispatch: {}
+
+permissions:
+  contents: write
+  issues: write
 
 jobs:
   refresh:
@@ -63,14 +68,43 @@ jobs:
           open('changed.flag', 'w').write('1' if changed else '0')
           " <<< "$(git show HEAD:data.json)"
 
-      - name: 변경사항 커밋 및 푸시
+      - name: 변경 요약 생성
+        if: ${{ true }}
         run: |
-          git config user.name "runraider-bot"
-          git config user.email "runraider-bot@users.noreply.github.com"
+          python -c "
+          import json
+          old = {r['id']: r for r in json.load(open('/dev/stdin', encoding='utf-8'))['races']}
+          new = {r['id']: r for r in json.load(open('data.json', encoding='utf-8'))['races']}
+          added = [new[i] for i in new if i not in old]
+          removed = [old[i] for i in old if i not in new]
+          status_changed = [(old[i], new[i]) for i in new if i in old and old[i]['status'] != new[i]['status']]
+          lines = []
+          if added:
+              lines.append(f'### 신규 대회 ({len(added)}건)')
+              for r in added: lines.append(f\"- {r['name']} ({r['date']}, {r['region']})\")
+          if removed:
+              lines.append(f'### 사라진 대회 ({len(removed)}건)')
+              for r in removed: lines.append(f\"- {r['name']}\")
+          if status_changed:
+              lines.append(f'### 접수상태 변경 ({len(status_changed)}건)')
+              for o, n in status_changed: lines.append(f\"- {n['name']}: {o['status']} -> {n['status']}\")
+          open('summary.md', 'w', encoding='utf-8').write(chr(10).join(lines) or '(내용 없음)')
+          " <<< "$(git show HEAD:data.json)"
+
+      - name: pending 브랜치에 올리고 이슈로 보고 (main엔 안 올림 - 배포는 승인 후 사람이)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
           if [ "$(cat changed.flag)" = "1" ]; then
+            git config user.name "runraider-bot"
+            git config user.email "runraider-bot@users.noreply.github.com"
             git add data.json gorunning_extracted_sample.csv sitemap.xml
-            git commit -m "자동 갱신: $(date +'%Y-%m-%d %H:%M')"
-            git push
+            git commit -m "자동 갱신 대기: $(date +'%Y-%m-%d %H:%M')"
+            git push origin HEAD:auto-refresh-pending --force
+            gh issue create \
+              --title "🔔 대회 데이터 변경 감지 ($(date +'%Y-%m-%d'))" \
+              --body-file summary.md \
+              --label "auto-refresh"
           else
-            echo "실제 데이터 변화 없음 - 배포 스킵 (crawl-only, no deploy)"
+            echo "실제 데이터 변화 없음 - 보고/배포 스킵"
           fi
