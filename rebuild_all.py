@@ -281,11 +281,11 @@ today_iso = date.today().isoformat()
 sitemap_lines = [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-    f'  <url><loc>https://runraiderv.netlify.app/</loc><lastmod>{today_iso}</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>',
+    f'  <url><loc>https://runraider.co.kr/</loc><lastmod>{today_iso}</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>',
 ]
 for r in data:
     sitemap_lines.append(
-        f'  <url><loc>https://runraiderv.netlify.app/race.html?id={r["id"]}</loc>'
+        f'  <url><loc>https://runraider.co.kr/race.html?id={r["id"]}</loc>'
         f'<lastmod>{r.get("lastVerifiedAt") or today_iso}</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>'
     )
 sitemap_lines.append('</urlset>')

@@ -49,7 +49,7 @@ Promise.all([
   }
   metaDesc.content = `${race.name} — ${race.date} · ${race.region}${race.place ? " " + race.place : ""} · 접수상태: ${race.status}. 접수기간, 코스 정보, 참가비 등 최신 확인 정보.`;
 
-  const canonicalUrl = `https://runraiderv.netlify.app/race.html?id=${race.id}`;
+  const canonicalUrl = `https://runraider.co.kr/race.html?id=${race.id}`;
   let canonical = document.querySelector('link[rel="canonical"]');
   if (!canonical) {
     canonical = document.createElement("link");

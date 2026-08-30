@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://runraiderv.netlify.app/sitemap.xml
+Sitemap: https://runraider.co.kr/sitemap.xml

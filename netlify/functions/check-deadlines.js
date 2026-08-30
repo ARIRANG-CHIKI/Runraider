@@ -36,7 +36,7 @@ async function sendEmail(to, subject, html) {
 const UTC_TO_KST_SLOT = { 1: 10, 5: 14, 8: 17 };
 
 exports.handler = async () => {
-  const dataRes = await fetch("https://runraiderv.netlify.app/data.json");
+  const dataRes = await fetch("https://runraider.co.kr/data.json");
   const { races } = await dataRes.json();
   const raceById = Object.fromEntries(races.map(r => [r.id, r]));
 
@@ -66,7 +66,7 @@ exports.handler = async () => {
       const payload = JSON.stringify({
         title: `런레이더 · ${ddayLabel}`,
         body: `${race.name} · ${race.regEnd}`,
-        url: `https://runraiderv.netlify.app/race.html?id=${race.id}`
+        url: `https://runraider.co.kr/race.html?id=${race.id}`
       });
       try {
         if (subscription) await webpush.sendNotification(subscription, payload);
