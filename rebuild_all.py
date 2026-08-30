@@ -1,4 +1,5 @@
 import sqlite3, csv, re, json, os
+from datetime import date
 
 DB_PATH = "/tmp/marathon_rebuild.db"
 if os.path.exists(DB_PATH):
@@ -158,7 +159,7 @@ tier2_overseas = [
     ("VMM 사파 마라톤", "2026-09-19", "해외", None, "Vietnam Mountain Marathon", "접수전",
      "https://vietnammountainmarathon.com/", ["하프", "10km"],
      "베트남 산악 지대(사파)를 달리는 트레일 코스 - 최근 트레일러닝 인기와 맞물려 한국인 참가 증가 중"),
-    ("대련 국제마라톤", "2025-05-11", "해외", None, "Dalian International Marathon", "접수전",
+    ("대련 국제마라톤", "2027-05-11", "해외", None, "Dalian International Marathon", "접수전",
      "https://aims-worldrunning.org/races/720.html", ["풀코스"],
      "확인 가능한 가장 최근 개최일(2025년) 기준 - 매년 봄 개최되나 2027년 정확한 일정은 미발표, 공식 채널 재확인 필요"),
 ]
@@ -272,7 +273,24 @@ for r in out_rows:
     })
 
 with open("data_export.json", "w", encoding="utf-8") as f:
-    json.dump({"generatedAt": "2026-07-27", "races": data}, f, ensure_ascii=False, indent=0)
+    json.dump({"generatedAt": date.today().isoformat(), "races": data}, f, ensure_ascii=False, indent=0)
 
 print(f"data_export.json 저장 완료, {len(data)}건")
+
+today_iso = date.today().isoformat()
+sitemap_lines = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    f'  <url><loc>https://runraiderv.netlify.app/</loc><lastmod>{today_iso}</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>',
+]
+for r in data:
+    sitemap_lines.append(
+        f'  <url><loc>https://runraiderv.netlify.app/race.html?id={r["id"]}</loc>'
+        f'<lastmod>{r.get("lastVerifiedAt") or today_iso}</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>'
+    )
+sitemap_lines.append('</urlset>')
+with open("sitemap.xml", "w", encoding="utf-8") as f:
+    f.write("\n".join(sitemap_lines))
+print(f"sitemap.xml 저장 완료, {len(data)}건 URL 포함")
+
 conn.close()
