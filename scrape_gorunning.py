@@ -1,11 +1,16 @@
 """
 gorunning.kr 자동 재수집 스크립트 (트랙 A: 자동화 파이프라인용)
 
-주의: 이 스크립트는 GitHub Actions 러너(실제 인터넷 접속 가능)에서 실행되는 걸 전제로 작성했다.
-지금 작업 중인 샌드박스는 gorunning.kr에 직접 접속(curl/requests)이 안 막혀 있어서
-실제 HTML 구조를 보고 셀렉터를 확정하지 못했다. 아래 파싱 로직은 gorunning.kr이
-공개 페이지에서 보여주는 텍스트 패턴(📅 날짜 | 📍 장소, 거리: ..., 등록 ~월/일)을
-근거로 최선으로 짠 것이라, 실제 러너에서 처음 돌릴 때 결과를 한 번 검증해야 한다.
+2026-08-30: 실제 페이지 HTML을 직접 받아서 확인 후 파싱 로직을 다시 작성함.
+실제 구조는 이전 버전이 가정한 것과 전혀 달랐다 (📅/📍 이모지, "거리:" 라벨,
+행 안에 날짜 텍스트 같은 건 존재하지 않았음 - 애초에 실제 페이지를 본 적 없이
+추측만으로 짠 코드였다):
+
+- 날짜는 각 대회 행이 아니라, 그 앞에 나오는 별도 섹션 헤더에 있다:
+  <h3>...<span>09월 03일 (목)</span>... 1개 대회</h3>
+  (연도는 이 헤더에 없으므로 요청 URL의 /races/monthly/{year}-{month}/ 에서 가져온다)
+- 그 헤더 바로 다음에 나오는 <table><tbody><tr> 한 줄이 대회 하나이고,
+  <td> 7개가 각각 [번호, 대회명(링크), 거리, 지역, 장소, 주최, 접수상태] 순서다.
 """
 import re
 import csv
@@ -19,7 +24,6 @@ HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; RunRaiderBot/1.0)"}
 STATUS_MAP = {
     "등록중": "접수중",
     "등록마감": "접수마감",
-    "등록 예정": "접수전",
     "등록예정": "접수전",
 }
 
@@ -30,41 +34,41 @@ def fetch(url: str) -> BeautifulSoup:
     return BeautifulSoup(r.text, "html.parser")
 
 
-def parse_listing(soup: BeautifulSoup) -> list[dict]:
+def parse_listing(soup: BeautifulSoup, year: int) -> list[dict]:
     records = []
-    # 대회 상세 링크는 /races/{id}/{slug}/ 형태
-    for a in soup.select('a[href*="/races/"]'):
-        href = a.get("href", "")
-        if not re.search(r"/races/\d+/", href):
+    for h3 in soup.find_all("h3"):
+        header_text = h3.get_text(" ", strip=True)
+        day_m = re.search(r"(\d{2})월\s*(\d{2})일", header_text)
+        if not day_m:
             continue
-        name = a.get_text(strip=True)
-        if not name:
+        race_date = f"{year}-{day_m.group(1)}-{day_m.group(2)}"
+
+        table = h3.find_next("table")
+        if not table:
             continue
-        # 링크를 감싸는 카드 블록 텍스트에서 날짜/장소/거리/상태 추출
-        card = a.find_parent(["article", "li", "div"]) or a.parent
-        block_text = card.get_text(" ", strip=True) if card else ""
+        for tr in table.select("tbody tr"):
+            tds = tr.find_all("td")
+            if len(tds) < 7:
+                continue
+            a = tds[1].find("a", href=re.compile(r"/races/\d+/"))
+            name = (a.get_text(strip=True) if a else tds[1].get_text(strip=True))
+            href = a.get("href", "") if a else ""
+            if not name or not href:
+                continue
+            status_raw = tds[6].get_text(strip=True)
 
-        date_m = re.search(r"(\d{4})년\s*(\d{2})월\s*(\d{2})일", block_text)
-        place_m = re.search(r"📍\s*([^\n|]+?)(?=\s*거리[:：]|\s*등록|$)", block_text)
-        dist_m = re.search(r"거리[:：]\s*([^\n]+?)(?=\s*등록|$)", block_text)
-        status_word = "접수중"
-        if "마감" in block_text and "등록 ~" not in block_text:
-            status_word = "접수마감"
-        elif re.search(r"등록\s*~\d{2}/\d{2}", block_text):
-            status_word = "접수중"
-
-        records.append({
-            "race_name": name,
-            "race_date": f"{date_m.group(1)}-{date_m.group(2)}-{date_m.group(3)}" if date_m else "",
-            "distance_labels": dist_m.group(1).strip() if dist_m else "",
-            "region": "",
-            "location_detail": place_m.group(1).strip() if place_m else "",
-            "host_org": "",
-            "registration_status": status_word,
-            "source_url": BASE + href if href.startswith("/") else href,
-            "source": "gorunning.kr",
-            "tier": "Tier2",
-        })
+            records.append({
+                "race_name": name,
+                "race_date": race_date,
+                "distance_labels": tds[2].get_text(" ", strip=True),
+                "region": tds[3].get_text(strip=True),
+                "location_detail": tds[4].get_text(strip=True),
+                "host_org": tds[5].get_text(strip=True),
+                "registration_status": STATUS_MAP.get(status_raw, status_raw or "접수중"),
+                "source_url": BASE + href if href.startswith("/") else href,
+                "source": "gorunning.kr",
+                "tier": "Tier2",
+            })
     return records
 
 
@@ -82,7 +86,7 @@ def main():
         except Exception as e:
             print(f"실패: {url} ({e})")
             continue
-        for rec in parse_listing(soup):
+        for rec in parse_listing(soup, year):
             all_records[rec["race_name"]] = rec
         time.sleep(1)
 
