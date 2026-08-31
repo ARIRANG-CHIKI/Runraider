@@ -272,15 +272,19 @@ for r in out_rows:
         "feeInfo": r[15], "capacityInfo": r[16], "dateUncertain": bool(r[17])
     })
 
-# 안전장치 3: 대회 날짜가 이미 지났는데 상태가 "접수중/접수전"으로 박제되는 경우가
-# 있었다 (지난 대회는 gorunning.kr 최신 목록에서 빠지면서 다시 안 긁혀와, 예전에
-# 확인했던 오래된 상태가 그대로 남음 - 예: "사우나런 in 석촌호수"가 접수마감일
-# 지나고도 몇 주째 "접수중"으로 떠있던 사고). 일정 미확정(dateUncertain) 대회는
-# 날짜 자체가 추정치라 이 규칙에서 제외한다.
+# 안전장치 3: 접수마감일(또는 대회 날짜)이 이미 지났는데 상태가 "접수중/접수전"으로
+# 박제되는 경우가 있었다 (지난 대회는 gorunning.kr 최신 목록에서 빠지면서 다시 안
+# 긁혀와, 예전에 확인했던 오래된 상태가 그대로 남음 - 예: "사우나런 in 석촌호수"가
+# 접수마감일 지나고도 몇 주째 "접수중"으로 떠있던 사고). regEnd(접수마감일)가 있으면
+# 그걸 우선 기준으로 삼고, 없으면 대회 날짜(date)로 판단한다. 일정 미확정
+# (dateUncertain) 대회는 날짜 자체가 추정치라 이 규칙에서 제외한다.
 today_str = date.today().isoformat()
 stale_fixed = 0
 for r in data:
-    if not r["dateUncertain"] and r["date"] and r["date"] < today_str and r["status"] in ("접수중", "접수전"):
+    if r["dateUncertain"] or r["status"] not in ("접수중", "접수전"):
+        continue
+    deadline = r["regEnd"] or r["date"]
+    if deadline and deadline < today_str:
         r["status"] = "접수마감"
         stale_fixed += 1
 if stale_fixed:
