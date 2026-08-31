@@ -272,8 +272,22 @@ for r in out_rows:
         "feeInfo": r[15], "capacityInfo": r[16], "dateUncertain": bool(r[17])
     })
 
+# 안전장치 3: 대회 날짜가 이미 지났는데 상태가 "접수중/접수전"으로 박제되는 경우가
+# 있었다 (지난 대회는 gorunning.kr 최신 목록에서 빠지면서 다시 안 긁혀와, 예전에
+# 확인했던 오래된 상태가 그대로 남음 - 예: "사우나런 in 석촌호수"가 접수마감일
+# 지나고도 몇 주째 "접수중"으로 떠있던 사고). 일정 미확정(dateUncertain) 대회는
+# 날짜 자체가 추정치라 이 규칙에서 제외한다.
+today_str = date.today().isoformat()
+stale_fixed = 0
+for r in data:
+    if not r["dateUncertain"] and r["date"] and r["date"] < today_str and r["status"] in ("접수중", "접수전"):
+        r["status"] = "접수마감"
+        stale_fixed += 1
+if stale_fixed:
+    print(f"지난 날짜인데 상태 안 맞던 대회 {stale_fixed}건 접수마감으로 보정")
+
 with open("data_export.json", "w", encoding="utf-8") as f:
-    json.dump({"generatedAt": date.today().isoformat(), "races": data}, f, ensure_ascii=False, indent=0)
+    json.dump({"generatedAt": today_str, "races": data}, f, ensure_ascii=False, indent=0)
 
 print(f"data_export.json 저장 완료, {len(data)}건")
 

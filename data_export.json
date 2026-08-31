@@ -1,5 +1,5 @@
 {
-"generatedAt": "2026-08-30",
+"generatedAt": "2026-08-31",
 "races": [
 {
 "id": 254,
@@ -28,7 +28,7 @@
 "region": "서울",
 "place": "석촌 호수 인근",
 "host": "사우나런",
-"status": "접수중",
+"status": "접수마감",
 "url": "https://saunarun.com/products/jsnpdf6bf8uc",
 "tier": "Tier2",
 "lastVerifiedAt": "2026-07-27",
@@ -128,7 +128,7 @@
 "region": "전남",
 "place": "화엄사주차장",
 "host": "(사)한국산악마라톤연맹",
-"status": "접수중",
+"status": "접수마감",
 "url": "http://www.koreatrail.net/home/main.php?link=event&einc=eapp&opp=20250820150217&csno=20191209143330",
 "tier": "Tier2",
 "lastVerifiedAt": "2026-07-27",
