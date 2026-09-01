@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>문의하기 | 런레이더</title>
+<meta name="description" content="런레이더에 오류 신고나 문의사항을 남겨주세요." />
+<link rel="canonical" href="https://runraider.co.kr/contact.html" />
+<link rel="icon" href="icon-192.png" type="image/png" />
+<link rel="stylesheet" href="style.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@700;900&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <div class="brand">
+        <span class="brand-mark">🏃</span>
+        <div>
+          <a href="index.html" class="brand-link"><p class="brand-title">런레이더</p></a>
+          <p class="tagline">가장 정확한 마라톤 일정표 — 마감임박 · 시작임박 · 코스 꿀팁</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap static-page">
+    <a href="index.html" class="back-link">← 목록으로</a>
+    <h1>문의하기</h1>
+    <p>잘못된 대회 정보 제보, 기능 제안, 그 밖의 문의사항을 남겨주세요.</p>
+
+    <form id="contact-form" class="contact-form">
+      <label>이름 (선택)
+        <input type="text" name="name" maxlength="50" />
+      </label>
+      <label>회신받을 이메일 (선택)
+        <input type="email" name="email" maxlength="120" />
+      </label>
+      <!-- 허니팟: 스팸봇만 채우는 숨김 필드 -->
+      <label class="hp-field" aria-hidden="true">
+        웹사이트
+        <input type="text" name="website" tabindex="-1" autocomplete="off" />
+      </label>
+      <label>문의 내용 *
+        <textarea name="message" rows="6" maxlength="3000" required></textarea>
+      </label>
+      <button type="submit" class="hero-btn-primary">보내기</button>
+      <p id="contact-status" class="contact-status" role="status"></p>
+    </form>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="disclaimer">정확한 접수 마감일과 정원은 반드시 각 대회 공식 사이트에서 최종 확인하세요.</p>
+    </div>
+  </footer>
+
+  <script>
+    const form = document.getElementById("contact-form");
+    const statusEl = document.getElementById("contact-status");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      const payload = Object.fromEntries(fd.entries());
+      const btn = form.querySelector("button");
+      btn.disabled = true;
+      statusEl.textContent = "보내는 중…";
+      try {
+        const res = await fetch("/.netlify/functions/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        if (res.ok) {
+          statusEl.textContent = "문의가 접수됐습니다. 감사합니다!";
+          form.reset();
+        } else {
+          statusEl.textContent = "전송에 실패했습니다. 잠시 후 다시 시도해주세요.";
+        }
+      } catch {
+        statusEl.textContent = "전송 중 오류가 발생했습니다.";
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

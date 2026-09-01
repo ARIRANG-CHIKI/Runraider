@@ -196,3 +196,24 @@ body { margin: 0; background: var(--page-bg); color: #2c2c2a; line-height: 1.5; 
 .notice-popup-actions { display: flex; justify-content: space-between; align-items: center; }
 .notice-popup-link { background: none; border: none; font-size: 12.5px; color: var(--muted); text-decoration: underline; cursor: pointer; padding: 4px 0; }
 .notice-popup-close { background: var(--accent); color: #fff; border: none; border-radius: var(--radius); padding: 8px 16px; font-size: 13.5px; cursor: pointer; }
+
+/* 정적 페이지 (개인정보처리방침·문의하기) */
+.static-page { max-width: 640px; margin: 0 auto; padding-bottom: 60px; line-height: 1.7; }
+.static-page h1 { font-family: "Gothic A1", sans-serif; font-weight: 900; font-size: 24px; margin: 20px 0 18px; }
+.static-page h2 { font-size: 16px; font-weight: 700; margin: 26px 0 8px; }
+.static-page p, .static-page li { font-size: 14px; color: #444; }
+.static-page ul { padding-left: 20px; }
+.static-updated { color: var(--muted); font-size: 12.5px; margin-top: 30px; }
+
+.contact-form { display: flex; flex-direction: column; gap: 14px; margin-top: 22px; }
+.contact-form label { display: flex; flex-direction: column; gap: 6px; font-size: 13.5px; font-weight: 600; color: #333; }
+.contact-form input, .contact-form textarea {
+  font-family: inherit; font-size: 14px; padding: 10px 12px;
+  border: 1px solid var(--border); border-radius: 8px; resize: vertical;
+}
+.contact-form button { align-self: flex-start; border: none; cursor: pointer; }
+.contact-status { font-size: 13px; color: var(--muted); min-height: 18px; }
+.hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+.footer-links { font-size: 12px; }
+.footer-links a { color: var(--muted); }
