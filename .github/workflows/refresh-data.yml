@@ -43,6 +43,10 @@ jobs:
       - name: 최신 대회 정보 재수집
         run: python scrape_gorunning.py
 
+      - name: runfinder.kr 신규 대회 재수집 (실패해도 전체 파이프라인은 계속 진행)
+        continue-on-error: true
+        run: python scrape_runfinder.py
+
       - name: 데이터 재빌드
         run: python rebuild_all.py && cp data_export.json data.json
 
@@ -98,7 +102,7 @@ jobs:
           if [ "$(cat changed.flag)" = "1" ]; then
             git config user.name "runraider-bot"
             git config user.email "runraider-bot@users.noreply.github.com"
-            git add data.json gorunning_extracted_sample.csv sitemap.xml
+            git add data.json gorunning_extracted_sample.csv runfinder_new_only.csv sitemap.xml races/
             git commit -m "자동 갱신 대기: $(date +'%Y-%m-%d %H:%M')"
             git push origin HEAD:auto-refresh-pending --force
             gh issue create \

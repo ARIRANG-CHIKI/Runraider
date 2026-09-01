@@ -250,6 +250,28 @@ for race_name, info in fee_data.items():
 conn.commit()
 print(f"참가비·정원 정보 보강: {fee_matched}건")
 
+# ---- Tier2: runfinder.kr에서 발굴한 신규 대회 (고러닝+마라톤GO 미등재분) ----
+# 2026-08-31 추가. 반드시 다른 모든 INSERT 블록 다음, 맨 마지막에 와야 한다 -
+# 중간에 끼워넣으면 SQLite AUTOINCREMENT id가 그 뒤 대회들 전부 밀려서, 이미
+# sitemap/알림/검색엔진에 제출한 race.html?id=N 링크가 전부 다른 대회를 가리키게
+# 되는 사고가 남 (실제로 한 번 이렇게 만들었다가 29건 밀린 걸 발견하고 되돌림).
+# scrape_runfinder.py가 이미 이름 유사도 비교로 중복 제거해둔 파일이라, 여기서는
+# 그대로 삽입만 한다.
+with open("runfinder_new_only.csv", encoding="utf-8-sig") as f:
+    rf_new_rows = list(csv.DictReader(f))
+for r in rf_new_rows:
+    cur.execute("""INSERT INTO races (race_name, race_date, region, location_detail, host_org,
+                   registration_status, official_url, last_verified_at, tier, source, reg_start, reg_end)
+                   VALUES (?,?,?,?,?,?,?,?,?,?,?,?)""",
+                (r["race_name"], r["race_date"], r["region"], r["location_detail"], r["host_org"],
+                 r["registration_status"], r["source_url"], date.today().isoformat(), r["tier"], r["source"],
+                 r["reg_start"] or None, r["reg_end"] or None))
+    race_id = cur.lastrowid
+    for lab in [x for x in r["distance_labels"].split() if x] or ["미정"]:
+        cur.execute("INSERT INTO race_distances (race_id, distance_label) VALUES (?,?)", (race_id, lab))
+conn.commit()
+print(f"runfinder.kr 신규 대회 삽입: {len(rf_new_rows)}건")
+
 # ---- 최종 JSON 내보내기 ----
 out_rows = cur.execute("""
     SELECT r.race_id, r.race_name, r.race_date, r.region, r.location_detail, r.host_org,
