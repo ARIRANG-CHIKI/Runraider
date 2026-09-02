@@ -1,5 +1,5 @@
 {
-"generatedAt": "2026-09-01",
+"generatedAt": "2026-09-02",
 "races": [
 {
 "id": 254,
@@ -1351,7 +1351,7 @@
 "status": "접수마감",
 "url": "http://www.koreatrail.net/home/main.php?link=event&amp;einc=eapp&amp;opp=20250910133652&amp;csno=20191227110239#baseline",
 "tier": "Tier2",
-"lastVerifiedAt": "2026-09-01",
+"lastVerifiedAt": "2026-09-02",
 "regStart": "2025-11-13",
 "regEnd": "2026-08-31",
 "distances": "27km",
@@ -2271,7 +2271,7 @@
 "status": "접수마감",
 "url": "http://%EA%B0%90%EB%8F%99%EC%9D%98%EB%A7%88%EB%9D%BC%ED%86%A4.com",
 "tier": "Tier2",
-"lastVerifiedAt": "2026-09-01",
+"lastVerifiedAt": "2026-09-02",
 "regStart": "2026-08-01",
 "regEnd": "2026-08-31",
 "distances": "10km, 5km, 하프",
@@ -4511,7 +4511,7 @@
 "status": "접수중",
 "url": "http://ssecorun.co.kr",
 "tier": "Tier2",
-"lastVerifiedAt": "2026-09-01",
+"lastVerifiedAt": "2026-09-02",
 "regStart": "2026-08-18",
 "regEnd": "2026-10-11",
 "distances": "10km, 5km, 5km, 슬로조깅",
@@ -5151,7 +5151,7 @@
 "status": "접수중",
 "url": "http://www.peacerun.kr",
 "tier": "Tier2",
-"lastVerifiedAt": "2026-09-01",
+"lastVerifiedAt": "2026-09-02",
 "regStart": "2026-08-04",
 "regEnd": "2026-10-24",
 "distances": "10km, 5km",

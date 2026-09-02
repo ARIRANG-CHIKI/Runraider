@@ -184,12 +184,27 @@ function getFiltered() {
   );
 }
 
-function renderList() {
-  const filtered = getFiltered();
-  document.getElementById("f-count").textContent = `${filtered.length}개 중 ${Math.min(visibleCount, filtered.length)}개 표시`;
+function raceCardHTML(x) {
+  const dday = x.regEnd ? daysBetween(x.regEnd) : null;
+  const ddayBadge = dday !== null && dday >= 0 && dday <= 7
+    ? `<span class="card-dday">${fmtDday(dday)}</span>` : "";
+  return `
+    <a class="race-card${x.competitivenessNote ? " urgent" : ""}" href="race.html?id=${x.id}">
+      ${ddayBadge}
+      <span class="card-date">${x.date}</span>
+      <div class="card-name">${x.tier === "Tier1" ? '<span class="tier1-badge">Tier1</span>' : ""}${x.name}</div>
+      <div class="card-meta">📍 ${x.region}</div>
+      <div class="card-pills">${x.distances.split(",").map(d => d.trim()).filter(Boolean).map(d => `<span class="card-pill">${d}</span>`).join("")}</div>
+      ${x.competitivenessNote ? `<div class="competitiveness-note">🔥 ${x.competitivenessNote}</div>` : ""}
+      <div class="card-status">
+        <span class="status-badge ${statusClass(x.status)}">${x.status}</span>
+        ${favButton(x.id)}
+      </div>
+    </a>`;
+}
 
-  const listEl = document.getElementById("race-list");
-  listEl.innerHTML = filtered.slice(0, visibleCount).map(x => `
+function raceRowHTML(x) {
+  return `
     <a class="race-item${x.competitivenessNote ? " urgent" : ""}" href="race.html?id=${x.id}">
       <span class="race-date">${x.date}</span>
       <div>
@@ -202,10 +217,37 @@ function renderList() {
         ${favButton(x.id)}
         <span class="status-badge ${statusClass(x.status)}">${x.status}</span>
       </div>
-    </a>
-  `).join("");
+    </a>`;
+}
 
-  document.getElementById("load-more").hidden = filtered.length <= visibleCount;
+function renderList() {
+  const filtered = getFiltered();
+  // 접수중인 대회를 먼저(카드), 그 외(접수전·접수마감 등)는 뒤에(리스트) - 날짜순은
+  // 각 그룹 내에서 유지된다 (allRaces 자체가 이미 날짜순 정렬돼서 옴).
+  const open = filtered.filter(x => x.status === "접수중");
+  const others = filtered.filter(x => x.status !== "접수중");
+  const ordered = open.concat(others);
+
+  document.getElementById("f-count").textContent = `${filtered.length}개 중 ${Math.min(visibleCount, filtered.length)}개 표시`;
+
+  const visible = ordered.slice(0, visibleCount);
+  const visibleOpen = visible.filter(x => x.status === "접수중");
+  const visibleOthers = visible.filter(x => x.status !== "접수중");
+
+  const cardsSection = document.getElementById("race-cards-section");
+  const cardsEl = document.getElementById("race-cards");
+  if (visibleOpen.length) {
+    cardsSection.hidden = false;
+    cardsEl.innerHTML = visibleOpen.map(raceCardHTML).join("");
+  } else {
+    cardsSection.hidden = true;
+    cardsEl.innerHTML = "";
+  }
+
+  const listEl = document.getElementById("race-list");
+  listEl.innerHTML = visibleOthers.map(raceRowHTML).join("");
+
+  document.getElementById("load-more").hidden = ordered.length <= visibleCount;
 }
 
 async function syncFavoritesToServer() {

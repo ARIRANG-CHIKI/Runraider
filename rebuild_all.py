@@ -1,4 +1,5 @@
 import sqlite3, csv, re, json, os
+import html as html_lib
 from datetime import date
 
 DB_PATH = "/tmp/marathon_rebuild.db"
@@ -333,11 +334,38 @@ with open("sitemap.xml", "w", encoding="utf-8") as f:
     f.write("\n".join(sitemap_lines))
 print(f"sitemap.xml 저장 완료, {len(data)}건 URL 포함")
 
+# ---- RSS 피드 (검색엔진에게 "새로 생기거나 갱신된 대회"를 빠르게 알려주는 용도.
+# 사람이 구독하는 경우는 거의 없고, 네이버/구글 크롤러가 사이트맵 전체를 다시
+# 훑는 대신 이 파일만 보고 최근 변경분을 파악하게 하는 보조 신호) ----
+recent = sorted(data, key=lambda r: r.get("lastVerifiedAt") or "", reverse=True)[:50]
+rss_items = []
+for r in recent:
+    title = html_lib.escape(f'{r["name"]} ({r["date"]}) - {r["status"]}')
+    desc = html_lib.escape(f'{r["region"]}{(" " + r["place"]) if r["place"] else ""} · {r["distances"]}')
+    link = f'https://runraider.co.kr/race.html?id={r["id"]}'
+    pub_date = r.get("lastVerifiedAt") or today_str
+    rss_items.append(
+        f'    <item><title>{title}</title><link>{link}</link><guid>{link}</guid>'
+        f'<description>{desc}</description><pubDate>{pub_date}T00:00:00+09:00</pubDate></item>'
+    )
+rss_xml = (
+    '<?xml version="1.0" encoding="UTF-8"?>\n'
+    '<rss version="2.0"><channel>\n'
+    '  <title>런레이더 - 마라톤 대회 일정</title>\n'
+    '  <link>https://runraider.co.kr/</link>\n'
+    '  <description>가장 정확한 마라톤 일정표 - 최근 갱신된 대회 정보</description>\n'
+    f'  <lastBuildDate>{today_str}T00:00:00+09:00</lastBuildDate>\n'
+    + "\n".join(rss_items) + "\n"
+    '</channel></rss>\n'
+)
+with open("rss.xml", "w", encoding="utf-8") as f:
+    f.write(rss_xml)
+print(f"rss.xml 저장 완료, {len(rss_items)}건")
+
 # ---- 대회별 static HTML (SEO: 크롤러가 자바스크립트 실행 전에도
 # 대회별로 고유한 title/description/canonical을 보게 하기 위함) ----
 # netlify.toml의 리다이렉트 규칙이 /race.html?id=N 요청을 이 파일로 내부적으로
 # rewrite 해준다 (주소창 URL은 그대로 유지됨) - 기존 링크/사이트맵은 안 바뀜.
-import html as html_lib
 
 with open("race.html", encoding="utf-8") as f:
     race_template = f.read()

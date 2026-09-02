@@ -86,7 +86,7 @@ Promise.all([
 
       <div class="detail-body">
         <div class="detail-rows">
-          <div class="detail-row"><span class="detail-row-icon">📍</span><span class="detail-row-label">위치</span><span class="detail-row-value">${race.region}${race.place ? " · " + race.place : ""}</span></div>
+          <div class="detail-row"><span class="detail-row-icon">📍</span><span class="detail-row-label">위치</span><span class="detail-row-value">${race.region}${race.place ? " · " + race.place : ""}${race.place ? ` <a class="map-link" href="https://map.naver.com/p/search/${encodeURIComponent(race.place)}" target="_blank" rel="noopener">🗺️ 지도에서 보기</a>` : ""}</span></div>
           <div class="detail-row"><span class="detail-row-icon">🏛️</span><span class="detail-row-label">주최</span><span class="detail-row-value">${race.host || "정보 없음"}</span></div>
           <div class="detail-row"><span class="detail-row-icon">📝</span><span class="detail-row-label">접수기간</span><span class="detail-row-value">${race.regStart || "미확인"}${race.regStartTime ? " " + race.regStartTime : ""} ~ ${race.regEnd || "미확인"}</span></div>
           ${race.feeInfo ? `<div class="detail-row"><span class="detail-row-icon">💰</span><span class="detail-row-label">참가비</span><span class="detail-row-value">${race.feeInfo}</span></div>` : ""}
