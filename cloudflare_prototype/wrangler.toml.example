@@ -1,0 +1,20 @@
+# 실제 마이그레이션할 때 프로젝트 루트에 wrangler.toml로 놓을 설정 초안. 미검증.
+# (파일 확장자를 .example로 남겨둠 - 진짜 wrangler.toml로 오해해서 지금 레포에서
+# 뭔가를 건드리는 일 없게 하려고. 실제 이전 작업 때 이름 바꿔서 씀.)
+
+name = "runraider"
+compatibility_date = "2026-09-01"
+pages_build_output_dir = "."
+
+# race.html.ts 함수가 실제로 불리려면 필수 - 기본값(false)이면 이미 존재하는 정적
+# race.html 파일이 함수보다 먼저 서빙돼서 함수가 절대 안 불림.
+run_worker_first = true
+
+[[kv_namespaces]]
+binding = "SUBSCRIBERS"
+id = "TODO: wrangler kv namespace create SUBSCRIBERS 실행하면 나오는 id로 교체"
+
+[vars]
+# RESEND_API_KEY, CONTACT_EMAIL, VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY는
+# 여기 평문으로 적지 말고 `wrangler secret put` 명령으로 따로 등록
+# (Netlify 환경변수 UI에 넣었던 것과 같은 이유 - 공개 저장소라)
