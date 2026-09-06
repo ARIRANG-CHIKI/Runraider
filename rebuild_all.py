@@ -270,6 +270,25 @@ with open("runfinder_updates.csv", encoding="utf-8-sig") as f:
 conn.commit()
 print(f"runfinder.kr 기준 기존 대회 갱신: {rf_updated}건")
 
+# ---- Tier1 메이저 대회 개별 스크래퍼 (춘천마라톤 등, 주최측 공식 사이트 직접 확인) ----
+# 2026-09-06 추가. gorunning.kr류 통합 사이트가 아니라 대회 공식 사이트를 직접 봐서
+# 상태를 갱신 - 인기 대회일수록 정확도가 중요해서 별도로 챙긴다. 이것도 UPDATE만
+# 하니 id 밀림 걱정 없음. 파일이 없으면(스크래퍼 실패/스킵) 그냥 건너뜀.
+import os
+tier1_updated = 0
+if os.path.exists("chuncheon_update.csv"):
+    with open("chuncheon_update.csv", encoding="utf-8-sig") as f:
+        for r in csv.DictReader(f):
+            cur.execute(
+                "UPDATE races SET registration_status=?, reg_start=?, reg_end=?, last_verified_at=? "
+                "WHERE race_name=?",
+                (r["registration_status"], r["reg_start"] or None, r["reg_end"] or None,
+                 date.today().isoformat(), r["race_name"])
+            )
+            tier1_updated += cur.rowcount
+    conn.commit()
+print(f"Tier1 개별 스크래퍼(춘천마라톤 등) 기준 갱신: {tier1_updated}건")
+
 # ---- Tier2: runfinder.kr에서 발굴한 신규 대회 (고러닝+마라톤GO 미등재분) ----
 # 2026-08-31 추가. 반드시 다른 모든 INSERT 블록 다음, 맨 마지막에 와야 한다 -
 # 중간에 끼워넣으면 SQLite AUTOINCREMENT id가 그 뒤 대회들 전부 밀려서, 이미
