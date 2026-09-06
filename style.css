@@ -221,6 +221,9 @@ body { margin: 0; background: var(--page-bg); color: #2c2c2a; line-height: 1.5; 
 /* 접수중 대회 카드 */
 .race-cards-section { margin-bottom: 24px; }
 .race-cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 640px) {
+  .race-cards-grid { grid-template-columns: 1fr; }
+}
 .race-card {
   position: relative; display: block; background: var(--surface); border: 1px solid var(--border);
   border-radius: 12px; padding: 16px; text-decoration: none; color: inherit;
