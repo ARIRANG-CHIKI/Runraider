@@ -251,6 +251,25 @@ for race_name, info in fee_data.items():
 conn.commit()
 print(f"참가비·정원 정보 보강: {fee_matched}건")
 
+# ---- runfinder.kr로 기존(고러닝·마라톤GO 출처) 대회 상태/날짜 갱신 ----
+# 2026-09-06 추가. gorunning.kr이 GitHub Actions/Netlify IP를 차단하기 시작해서
+# 자동 갱신이 막힘 (전체 대회의 85%가 이 소스라 영향이 큼). runfinder.kr은 안
+# 막혀있고, 겹치는 대회가 191건이나 있어서(scrape_runfinder.py가 이름 유사도로
+# 매칭) 최소한 이만큼은 계속 자동으로 최신 상태를 반영할 수 있다. UPDATE만 하는
+# 거라(새 행 추가 아님) id 밀림 걱정은 없음 - 아무 데나 놓아도 안전하다.
+rf_updated = 0
+with open("runfinder_updates.csv", encoding="utf-8-sig") as f:
+    for r in csv.DictReader(f):
+        cur.execute(
+            "UPDATE races SET race_date=?, registration_status=?, reg_start=?, reg_end=?, last_verified_at=? "
+            "WHERE race_name=?",
+            (r["race_date"], r["registration_status"], r["reg_start"] or None, r["reg_end"] or None,
+             date.today().isoformat(), r["race_name"])
+        )
+        rf_updated += cur.rowcount
+conn.commit()
+print(f"runfinder.kr 기준 기존 대회 갱신: {rf_updated}건")
+
 # ---- Tier2: runfinder.kr에서 발굴한 신규 대회 (고러닝+마라톤GO 미등재분) ----
 # 2026-08-31 추가. 반드시 다른 모든 INSERT 블록 다음, 맨 마지막에 와야 한다 -
 # 중간에 끼워넣으면 SQLite AUTOINCREMENT id가 그 뒤 대회들 전부 밀려서, 이미

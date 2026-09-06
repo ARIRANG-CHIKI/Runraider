@@ -41,6 +41,13 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: 최신 대회 정보 재수집
+        # 2026-09-06: gorunning.kr이 GitHub Actions IP를 차단해서 이 단계가 항상
+        # 실패한다 (403). continue-on-error 없으면 이 단계 실패 시 뒤에 있는
+        # runfinder.kr 갱신·데이터 재빌드까지 전부 건너뛰어버려서, 고러닝이 막혀도
+        # runfinder로 191건은 계속 자동 갱신되게 하려던 목적 자체가 무의미해짐.
+        # 실패해도 기존 gorunning_extracted_sample.csv(마지막 정상본)를 그대로 두고
+        # 다음 단계로 진행한다.
+        continue-on-error: true
         run: python scrape_gorunning.py
 
       - name: runfinder.kr 신규 대회 재수집 (실패해도 전체 파이프라인은 계속 진행)
@@ -102,7 +109,7 @@ jobs:
           if [ "$(cat changed.flag)" = "1" ]; then
             git config user.name "runraider-bot"
             git config user.email "runraider-bot@users.noreply.github.com"
-            git add data.json gorunning_extracted_sample.csv runfinder_new_only.csv sitemap.xml rss.xml races/
+            git add data.json gorunning_extracted_sample.csv runfinder_new_only.csv runfinder_updates.csv sitemap.xml rss.xml races/
             git commit -m "자동 갱신 대기: $(date +'%Y-%m-%d %H:%M')"
             git push origin HEAD:auto-refresh-pending --force
             gh issue create \

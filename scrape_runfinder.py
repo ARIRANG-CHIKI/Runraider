@@ -77,46 +77,73 @@ def main():
             raise SystemExit(1)
 
     # 저희 기존 데이터(gorunning + marathongo 기반)와 겹치는 이름은 제외
+    # normalized -> 원본 이름 매핑도 같이 들고 있어야, 겹치는 대회를 "제외"만 하는 게
+    # 아니라 "그 대회를 업데이트"할 때 정확한 원본 이름으로 SQL WHERE 매칭이 가능하다.
+    existing_map = {}
     with open("gorunning_extracted_sample.csv", encoding="utf-8-sig") as f:
-        existing_names = {norm(row["race_name"]) for row in csv.DictReader(f)}
+        for row in csv.DictReader(f):
+            existing_map[norm(row["race_name"])] = row["race_name"]
     with open("marathongo_domestic_new_only.csv", encoding="utf-8-sig") as f:
-        existing_names |= {norm(row["race_name"]) for row in csv.DictReader(f)}
+        for row in csv.DictReader(f):
+            existing_map[norm(row["race_name"])] = row["race_name"]
+    existing_names = set(existing_map)
 
-    def is_duplicate(n: str) -> bool:
-        if n in existing_names:
-            return True
-        if any(n in e or e in n for e in existing_names if len(e) >= 4):
-            return True
+    def find_match(n: str) -> str | None:
+        """겹치는 기존 대회가 있으면 그 원본 이름을, 없으면 None을 반환."""
+        if n in existing_map:
+            return existing_map[n]
+        for e, orig in existing_map.items():
+            if len(e) >= 4 and (n in e or e in n):
+                return orig
         # 표기 차이(중간 삽입어, 잘린 글자 등)로 부분 문자열로도 안 걸리는 경우까지
         # 잡기 위해 유사도 비교 (예: "jtbc마라톤" vs "jtbc서울마라톤")
-        return any(difflib.SequenceMatcher(None, n, e).ratio() >= 0.75 for e in existing_names)
+        best_e, best_ratio = None, 0.0
+        for e in existing_names:
+            ratio = difflib.SequenceMatcher(None, n, e).ratio()
+            if ratio > best_ratio:
+                best_e, best_ratio = e, ratio
+        return existing_map[best_e] if best_ratio >= 0.75 else None
 
     new_rows = []
+    update_rows = []  # 이미 있는 대회인데, runfinder.kr 쪽 최신 상태/날짜로 갱신할 것들
     seen = set()
     for i in items:
         raw_name = i["race_name"].strip()
         if "취소" in raw_name:
             continue  # "해당 대회는 취소되었습니다" 같은 placeholder 텍스트
         n = norm(raw_name)
-        if not n or is_duplicate(n) or n in seen:
+        if not n or n in seen:
             continue
         if not i.get("race_date"):
             continue  # 날짜 없는 건 사이트 핵심 기능(D-day 등)이 아예 안 돌아서 제외
         seen.add(n)
-        new_rows.append({
-            "race_name": i["race_name"].strip(),
-            "race_date": i["race_date"],
-            "distance_labels": (i.get("race_type") or "").replace(",", " "),
-            "region": i.get("region") or "",
-            "location_detail": i.get("location") or "",
-            "host_org": i.get("organizer") or "",
-            "registration_status": compute_status(i.get("register_start_date"), i.get("register_end_date"), today_str),
-            "source_url": i.get("homepage") or i.get("detail_url") or f"{BASE}{i['race_view_url']}",
-            "source": "runfinder.kr",
-            "tier": "Tier2",
-            "reg_start": i.get("register_start_date") or "",
-            "reg_end": i.get("register_end_date") or "",
-        })
+
+        status = compute_status(i.get("register_start_date"), i.get("register_end_date"), today_str)
+        matched_name = find_match(n)
+
+        if matched_name:
+            update_rows.append({
+                "race_name": matched_name,  # 기존 DB의 원본 이름 (매칭 키)
+                "race_date": i["race_date"],
+                "registration_status": status,
+                "reg_start": i.get("register_start_date") or "",
+                "reg_end": i.get("register_end_date") or "",
+            })
+        else:
+            new_rows.append({
+                "race_name": raw_name,
+                "race_date": i["race_date"],
+                "distance_labels": (i.get("race_type") or "").replace(",", " "),
+                "region": i.get("region") or "",
+                "location_detail": i.get("location") or "",
+                "host_org": i.get("organizer") or "",
+                "registration_status": status,
+                "source_url": i.get("homepage") or i.get("detail_url") or f"{BASE}{i['race_view_url']}",
+                "source": "runfinder.kr",
+                "tier": "Tier2",
+                "reg_start": i.get("register_start_date") or "",
+                "reg_end": i.get("register_end_date") or "",
+            })
 
     fieldnames = ["race_name", "race_date", "distance_labels", "region", "location_detail",
                   "host_org", "registration_status", "source_url", "source", "tier",
@@ -127,7 +154,14 @@ def main():
         for row in new_rows:
             w.writerow(row)
 
-    print(f"수집 완료: 전체 {len(items)}건 중 신규 {len(new_rows)}건 -> runfinder_new_only.csv")
+    with open("runfinder_updates.csv", "w", newline="", encoding="utf-8-sig") as f:
+        w = csv.DictWriter(f, fieldnames=["race_name", "race_date", "registration_status", "reg_start", "reg_end"])
+        w.writeheader()
+        for row in update_rows:
+            w.writerow(row)
+
+    print(f"수집 완료: 전체 {len(items)}건 중 신규 {len(new_rows)}건(runfinder_new_only.csv), "
+          f"기존 대회 갱신용 {len(update_rows)}건(runfinder_updates.csv)")
 
 
 if __name__ == "__main__":
