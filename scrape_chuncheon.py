@@ -24,13 +24,15 @@ HEADERS = {
 RACE_NAME = "춘천마라톤"  # rebuild_all.py의 tier1 리스트에 있는 정확한 이름과 일치해야 함
 
 
-def parse_korean_date(text: str, year: int):
-    """'7월 20일(월) 10시' 같은 텍스트를 (월, 일, 시) 튜플로 변환. 못 찾으면 None."""
-    m = re.search(r"(\d{1,2})월\s*(\d{1,2})일.*?(\d{1,2})시", text)
-    if not m:
-        return None
-    month, day, hour = int(m.group(1)), int(m.group(2)), int(m.group(3))
-    return f"{year}-{month:02d}-{day:02d}"
+def parse_korean_dates(text: str, year: int):
+    """'6월 16일(화) 10시 ~ 6월 19일(금) 18시' 같은 텍스트에서 날짜를 전부 뽑는다
+    (양 끝 날짜 다 필요 - re.search로 첫 번째만 뽑으면 범위의 끝쪽을 놓친다.
+    실제로 이 버그로 마지막 구간 마감일이 7/23인데 7/22로 하루 밀려 나온 적 있음)."""
+    out = []
+    for m in re.finditer(r"(\d{1,2})월\s*(\d{1,2})일", text):
+        month, day = int(m.group(1)), int(m.group(2))
+        out.append(f"{year}-{month:02d}-{day:02d}")
+    return out
 
 
 def main():
@@ -60,9 +62,7 @@ def main():
     # 제일 이른 날짜 / 제일 늦은 날짜를 찾는다.
     dates = []
     for content in re.findall(r'text-content">([^<]+)</span>', section):
-        d = parse_korean_date(content, year)
-        if d:
-            dates.append(d)
+        dates.extend(parse_korean_dates(content, year))
 
     if len(dates) < 2:
         print(f"경고: 접수 날짜를 {len(dates)}개밖에 못 찾음 (최소 2개 기대). "
