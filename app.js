@@ -195,6 +195,7 @@ function raceCardHTML(x) {
       <div class="card-name">${x.tier === "Tier1" ? '<span class="tier1-badge">Tier1</span>' : ""}${x.name}</div>
       <div class="card-meta">📍 ${x.regionLabel || x.region}${x.place ? " · " + x.place : ""}</div>
       <div class="card-pills">${x.distances.split(",").map(d => d.trim()).filter(Boolean).map(d => `<span class="card-pill">${d}</span>`).join("")}</div>
+      ${x.host ? `<div class="card-host">🏛️ ${x.host}</div>` : ""}
       ${x.competitivenessNote ? `<div class="competitiveness-note">🔥 ${x.competitivenessNote}</div>` : ""}
       <div class="card-status">
         <span class="status-badge ${statusClass(x.status)}">${x.status}</span>
