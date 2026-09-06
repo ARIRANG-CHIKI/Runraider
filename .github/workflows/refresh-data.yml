@@ -40,6 +40,9 @@ jobs:
       - name: 의존성 설치
         run: pip install -r requirements.txt
 
+      - name: Playwright 브라우저 설치 (서울마라톤·JTBC는 JS 렌더링이라 필요)
+        run: python -m playwright install --with-deps chromium
+
       - name: 최신 대회 정보 재수집
         # 2026-09-06: gorunning.kr이 GitHub Actions IP를 차단해서 이 단계가 항상
         # 실패한다 (403). continue-on-error 없으면 이 단계 실패 시 뒤에 있는
@@ -54,9 +57,17 @@ jobs:
         continue-on-error: true
         run: python scrape_runfinder.py
 
-      - name: Tier1 메이저 대회 개별 사이트 재수집 (춘천마라톤 등)
+      - name: Tier1 메이저 대회 개별 사이트 재수집 (춘천마라톤)
         continue-on-error: true
         run: python scrape_chuncheon.py
+
+      - name: Tier1 메이저 대회 개별 사이트 재수집 (서울마라톤/동아마라톤)
+        continue-on-error: true
+        run: python scrape_seoul_marathon.py
+
+      - name: Tier1 메이저 대회 개별 사이트 재수집 (JTBC 서울마라톤)
+        continue-on-error: true
+        run: python scrape_jtbc_marathon.py
 
       - name: 데이터 재빌드
         run: python rebuild_all.py && cp data_export.json data.json
@@ -113,7 +124,13 @@ jobs:
           if [ "$(cat changed.flag)" = "1" ]; then
             git config user.name "runraider-bot"
             git config user.email "runraider-bot@users.noreply.github.com"
-            git add data.json gorunning_extracted_sample.csv runfinder_new_only.csv runfinder_updates.csv chuncheon_update.csv sitemap.xml rss.xml races/
+            # jtbc_marathon_update.csv 등 일부 파일은 스크래퍼가 확신이 없을 때
+            # 일부러 안 만들고 스킵한다 (2026-09-07 확인됨). git add에 존재하지
+            # 않는 경로가 섞이면 "pathspec did not match" 에러로 이 스텝 자체가
+            # 죽어버려서(-e 옵션), 있는 파일만 골라 넣는다.
+            for f in data.json gorunning_extracted_sample.csv runfinder_new_only.csv runfinder_updates.csv chuncheon_update.csv seoul_marathon_update.csv jtbc_marathon_update.csv sitemap.xml rss.xml races/; do
+              [ -e "$f" ] && git add "$f"
+            done
             git commit -m "자동 갱신 대기: $(date +'%Y-%m-%d %H:%M')"
             git push origin HEAD:auto-refresh-pending --force
             gh issue create \
