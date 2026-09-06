@@ -218,6 +218,27 @@ body { margin: 0; background: var(--page-bg); color: #2c2c2a; line-height: 1.5; 
 .footer-links { font-size: 12px; }
 .footer-links a { color: var(--muted); }
 
+/* 상세페이지 "비슷한 대회" - detail-card와 같은 톤이지만 별도 카드로 분리
+   (race.js에서 detail-card 바깥, #race-detail의 형제 요소로 렌더링됨) */
+.similar-section {
+  background: var(--surface); border: 1px solid var(--border);
+  border-top: 2px solid var(--accent); border-radius: 14px;
+  padding: 16px 22px 20px; margin: 0 0 30px;
+}
+
+/* 홈 화면 하단 "대회 등록 안내" 배너 - 주최측이 직접 정보를 등록/수정
+   요청하도록 유도(고러닝 데이터 의존도를 낮추는 채널 중 하나) */
+.organizer-banner {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  background: var(--surface-alt, #eef3fb); border: 1px solid var(--border);
+  border-radius: 12px; padding: 16px 20px; margin: 24px 0; flex-wrap: wrap;
+}
+.organizer-banner p { margin: 0; font-size: 14px; }
+.organizer-banner-btn {
+  flex-shrink: 0; background: var(--accent); color: #fff; text-decoration: none;
+  font-size: 13px; font-weight: 600; padding: 8px 16px; border-radius: 8px;
+}
+
 /* 접수중 대회 카드 */
 .race-cards-section { margin-bottom: 24px; }
 .race-cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }

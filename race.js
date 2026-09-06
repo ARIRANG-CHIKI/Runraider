@@ -129,7 +129,37 @@ Promise.all([
         <a class="apply-button" href="${race.url}" target="_blank" rel="noopener">공식 사이트에서 신청하기 →</a>
       </div>
     </div>
+
+    <div id="similar-races" class="detail-section similar-section"></div>
   `;
+
+  // 비슷한 대회 추천: 같은 지역/비슷한 거리대의 다른 대회 (홈 화면 "찜한 대회
+  // 기반 추천"과 같은 점수 방식 재사용) - 외부 API 없이 기존 데이터만으로
+  // 상세페이지를 덜 비어보이게 채우는 용도.
+  const myDists = new Set(race.distances.split(",").map(d => d.trim()));
+  const similar = payload.races
+    .filter(r => r.id !== race.id && r.status !== "접수마감")
+    .map(r => {
+      let score = 0;
+      if (r.region === race.region) score += 2;
+      if (r.distances.split(",").some(d => myDists.has(d.trim()))) score += 1;
+      return { ...r, score };
+    })
+    .filter(r => r.score > 0)
+    .sort((a, b) => b.score - a.score || Math.abs(new Date(a.date) - today) - Math.abs(new Date(b.date) - today))
+    .slice(0, 4);
+
+  if (similar.length) {
+    document.getElementById("similar-races").innerHTML = `
+      <div class="detail-section-title">🏃 비슷한 대회</div>
+      <div class="urgency-list">
+        ${similar.map(r => `
+          <a class="urgency-item" href="race.html?id=${r.id}">
+            <div><div class="urgency-name">${r.name}</div><div class="urgency-sub">${r.date} · ${r.regionLabel || r.region} · ${r.distances}</div></div>
+            <span class="status-badge ${statusClass(r.status)}">${r.status}</span>
+          </a>`).join("")}
+      </div>`;
+  }
 
   document.getElementById("detail-fav-btn").addEventListener("click", () => {
     toggleFavorite(race.id);

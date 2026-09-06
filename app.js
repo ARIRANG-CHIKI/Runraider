@@ -193,7 +193,7 @@ function raceCardHTML(x) {
       ${ddayBadge}
       <span class="card-date">${x.date}</span>
       <div class="card-name">${x.tier === "Tier1" ? '<span class="tier1-badge">Tier1</span>' : ""}${x.name}</div>
-      <div class="card-meta">📍 ${x.regionLabel || x.region}</div>
+      <div class="card-meta">📍 ${x.regionLabel || x.region}${x.place ? " · " + x.place : ""}</div>
       <div class="card-pills">${x.distances.split(",").map(d => d.trim()).filter(Boolean).map(d => `<span class="card-pill">${d}</span>`).join("")}</div>
       ${x.competitivenessNote ? `<div class="competitiveness-note">🔥 ${x.competitivenessNote}</div>` : ""}
       <div class="card-status">
@@ -209,7 +209,7 @@ function raceRowHTML(x) {
       <span class="race-date">${x.date}</span>
       <div>
         <div class="race-name">${x.tier === "Tier1" ? '<span class="tier1-badge">Tier1</span>' : ""}${x.dateUncertain ? '<span class="uncertain-badge">⚠️ 일정 미확정</span>' : ""}${x.name}</div>
-        <div class="race-meta">${x.regionLabel || x.region}</div>
+        <div class="race-meta">${x.regionLabel || x.region}${x.place ? " · " + x.place : ""}</div>
         ${x.competitivenessNote ? `<div class="competitiveness-note">🔥 ${x.competitivenessNote}</div>` : ""}
       </div>
       <span class="race-dist">${x.distances}</span>

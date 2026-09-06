@@ -1,4 +1,4 @@
-import sqlite3, csv, re, json, os
+import sqlite3, csv, re, json, os, shutil
 import html as html_lib
 from datetime import date
 
@@ -370,7 +370,17 @@ if stale_fixed:
 with open("data_export.json", "w", encoding="utf-8") as f:
     json.dump({"generatedAt": today_str, "races": data}, f, ensure_ascii=False, indent=0)
 
-print(f"data_export.json 저장 완료, {len(data)}건")
+# data.json이 실제로 사이트(app.js/race.js)가 fetch하는 파일이다. netlify.toml의
+# 빌드 커맨드는 그냥 "npm install"뿐이라 별도 빌드 스텝에서 이걸 만들어주지
+# 않는다 - GitHub Actions 워크플로에서만 "rebuild_all.py && cp data_export.json
+# data.json"으로 수동으로 복사해왔는데, 로컬에서 rebuild_all.py만 돌리고
+# 이 cp를 깜빡하면 data_export.json엔 최신 정보가 있어도 실제 사이트가 읽는
+# data.json은 계속 옛날 값으로 남는 사고가 난다 (실제로 2026-09-07에 겪음 -
+# 스크래퍼로 고친 접수상태가 로컬 테스트에서 하나도 반영 안 된 것처럼 보였음).
+# 매번 자동으로 동기화되게 여기서 바로 복사한다.
+shutil.copyfile("data_export.json", "data.json")
+
+print(f"data_export.json / data.json 저장 완료, {len(data)}건")
 
 today_iso = date.today().isoformat()
 sitemap_lines = [
