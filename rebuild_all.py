@@ -323,6 +323,8 @@ sitemap_lines = [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
     f'  <url><loc>https://runraider.co.kr/</loc><lastmod>{today_iso}</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>',
+    f'  <url><loc>https://runraider.co.kr/privacy.html</loc><lastmod>{today_iso}</lastmod><changefreq>monthly</changefreq><priority>0.2</priority></url>',
+    f'  <url><loc>https://runraider.co.kr/contact.html</loc><lastmod>{today_iso}</lastmod><changefreq>monthly</changefreq><priority>0.2</priority></url>',
 ]
 for r in data:
     sitemap_lines.append(
