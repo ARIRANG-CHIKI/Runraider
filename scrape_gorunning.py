@@ -28,10 +28,23 @@ STATUS_MAP = {
 }
 
 
-def fetch(url: str) -> BeautifulSoup:
-    r = requests.get(url, headers=HEADERS, timeout=20)
-    r.raise_for_status()
-    return BeautifulSoup(r.text, "html.parser")
+def fetch(url: str, retries: int = 3) -> BeautifulSoup:
+    # 2026-09-06: GitHub Actions 스케줄 실행에서 원인 불명으로 요청이 실패해 전체
+    # 자동 갱신이 중단된 적이 있었음 (로컬에서 같은 코드로 재현 시 바로 성공 - 일시적
+    # 네트워크/차단 문제로 추정). 한 번 실패했다고 바로 포기하지 않고 잠깐 쉬었다
+    # 재시도하도록 해서, 이런 일시적 문제는 스스로 넘어가게 함.
+    last_err = None
+    for attempt in range(1, retries + 1):
+        try:
+            r = requests.get(url, headers=HEADERS, timeout=20)
+            r.raise_for_status()
+            return BeautifulSoup(r.text, "html.parser")
+        except Exception as e:
+            last_err = e
+            if attempt < retries:
+                print(f"재시도 {attempt}/{retries} - {url} ({e})")
+                time.sleep(3 * attempt)
+    raise last_err
 
 
 def parse_listing(soup: BeautifulSoup, year: int) -> list[dict]:
