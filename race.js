@@ -27,8 +27,13 @@ const params = new URLSearchParams(location.search);
 const id = Number(params.get("id"));
 
 Promise.all([
-  fetch("data.json", { cache: "no-cache" }).then(r => r.json()),
-  fetch("resources.json").then(r => r.json()).catch(() => ({}))
+  // 절대경로 필수: 이 스크립트는 /race.html?id=N(루트)으로도, races/N.html
+  // (하위 폴더 정적 파일) 직접 경로로도 로드된다. 상대경로였다면 후자에서
+  // /races/data.json을 찾아 404가 나서 "데이터를 불러오지 못했습니다"가
+  // 뜬다 (실제로 재현·확인됨. sitemap/RSS는 전자 형태만 써서 지금까지
+  // 못 걸렸지만, 검색엔진이 직접 경로를 크롤링하면 노출될 수 있었음).
+  fetch("/data.json", { cache: "no-cache" }).then(r => r.json()),
+  fetch("/resources.json").then(r => r.json()).catch(() => ({}))
 ]).then(([payload, resources]) => {
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());

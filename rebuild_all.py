@@ -330,11 +330,19 @@ out_rows = cur.execute("""
     ORDER BY r.race_date
 """).fetchall()
 
+from region_districts import find_district
+
 data = []
 for r in out_rows:
+    region = r[3] or "기타"
+    place = r[4] or ""
+    district = find_district(region, place)
+    # 도 지역은 "전남 구례군"처럼 시/군까지, 특별시/광역시나 매칭 실패시엔
+    # 기존처럼 광역 지역명만 (regionLabel은 화면 표시용, region은 필터용으로 유지)
     data.append({
-        "id": r[0], "name": r[1], "date": r[2], "region": r[3] or "기타",
-        "place": r[4] or "", "host": r[5] if (r[5] and r[5].strip() not in ("", "-")) else "",
+        "id": r[0], "name": r[1], "date": r[2], "region": region,
+        "regionLabel": f"{region} {district}" if district else region,
+        "place": place, "host": r[5] if (r[5] and r[5].strip() not in ("", "-")) else "",
         "status": r[6], "url": r[7],
         "tier": r[8], "lastVerifiedAt": r[9], "regStart": r[10], "regEnd": r[11],
         "distances": (r[12] if r[12] and r[12] != "미정" else "거리 미확인"), "regStartTime": r[13], "competitivenessNote": r[14],

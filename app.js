@@ -42,7 +42,7 @@ function renderFavorites() {
   section.hidden = false;
   list.innerHTML = items.map(x => `
     <a class="urgency-item" href="race.html?id=${x.id}">
-      <div><div class="urgency-name">${x.name}</div><div class="urgency-sub">${x.date} · ${x.region}</div></div>
+      <div><div class="urgency-name">${x.name}</div><div class="urgency-sub">${x.date} · ${x.regionLabel || x.region}</div></div>
       ${favButton(x.id)}
     </a>`).join("");
 }
@@ -99,7 +99,7 @@ function renderRecommendations() {
   section.hidden = false;
   list.innerHTML = scored.map(x => `
     <a class="urgency-item" href="race.html?id=${x.id}">
-      <div><div class="urgency-name">${x.name}</div><div class="urgency-sub">${x.date} · ${x.region} · ${x.distances}</div></div>
+      <div><div class="urgency-name">${x.name}</div><div class="urgency-sub">${x.date} · ${x.regionLabel || x.region} · ${x.distances}</div></div>
       ${favButton(x.id)}
     </a>`).join("");
 }
@@ -123,7 +123,7 @@ function renderUrgency() {
   closingEl.innerHTML = closing.length
     ? closing.map(x => `
       <a class="urgency-item" href="race.html?id=${x.id}">
-        <div><div class="urgency-name">${x.name}</div><div class="urgency-sub">${x.date} · ${x.region} · ~${x.regEnd} 마감</div></div>
+        <div><div class="urgency-name">${x.name}</div><div class="urgency-sub">${x.date} · ${x.regionLabel || x.region} · ~${x.regEnd} 마감</div></div>
         <span class="dday-badge dday-close">${fmtDday(x.dday)}</span>
       </a>`).join("")
     : `<div class="urgency-empty">해당 대회 없음</div>`;
@@ -131,7 +131,7 @@ function renderUrgency() {
   openingEl.innerHTML = opening.length
     ? opening.map(x => `
       <a class="urgency-item" href="race.html?id=${x.id}">
-        <div><div class="urgency-name">${x.name}</div><div class="urgency-sub">${x.date} · ${x.region} · ${x.regStart}${x.regStartTime ? " " + x.regStartTime : ""} 시작</div></div>
+        <div><div class="urgency-name">${x.name}</div><div class="urgency-sub">${x.date} · ${x.regionLabel || x.region} · ${x.regStart}${x.regStartTime ? " " + x.regStartTime : ""} 시작</div></div>
         <span class="dday-badge dday-open">${fmtDday(x.dday)}</span>
       </a>`).join("")
     : `<div class="urgency-empty">해당 대회 없음</div>`;
@@ -193,7 +193,7 @@ function raceCardHTML(x) {
       ${ddayBadge}
       <span class="card-date">${x.date}</span>
       <div class="card-name">${x.tier === "Tier1" ? '<span class="tier1-badge">Tier1</span>' : ""}${x.name}</div>
-      <div class="card-meta">📍 ${x.region}</div>
+      <div class="card-meta">📍 ${x.regionLabel || x.region}</div>
       <div class="card-pills">${x.distances.split(",").map(d => d.trim()).filter(Boolean).map(d => `<span class="card-pill">${d}</span>`).join("")}</div>
       ${x.competitivenessNote ? `<div class="competitiveness-note">🔥 ${x.competitivenessNote}</div>` : ""}
       <div class="card-status">
@@ -209,7 +209,7 @@ function raceRowHTML(x) {
       <span class="race-date">${x.date}</span>
       <div>
         <div class="race-name">${x.tier === "Tier1" ? '<span class="tier1-badge">Tier1</span>' : ""}${x.dateUncertain ? '<span class="uncertain-badge">⚠️ 일정 미확정</span>' : ""}${x.name}</div>
-        <div class="race-meta">${x.region}</div>
+        <div class="race-meta">${x.regionLabel || x.region}</div>
         ${x.competitivenessNote ? `<div class="competitiveness-note">🔥 ${x.competitivenessNote}</div>` : ""}
       </div>
       <span class="race-dist">${x.distances}</span>
