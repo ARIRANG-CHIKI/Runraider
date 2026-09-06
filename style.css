@@ -2,8 +2,8 @@
   --accent: #ff4a1c;
   --accent-dark: #d63c12;
   --accent-bg: #fff0ea;
-  --hero-from: #0a6ef2;
-  --hero-to: #0891a8;
+  --hero-from: #3487f4; /* 원본(#0a6ef2)에 흰색 17% 섞은 틴트 */
+  --hero-to: #32a4b7; /* 원본(#0891a8)에 흰색 17% 섞은 틴트 */
   --success: #3b6d11;
   --success-bg: #eaf3de;
   --danger: #a32d2d;
@@ -139,9 +139,9 @@ body { margin: 0; background: var(--page-bg); color: #2c2c2a; line-height: 1.5; 
 .detail-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
 .race-name-lg { margin: 0; font-family: "Gothic A1", -apple-system, sans-serif; font-weight: 900; font-size: 22px; letter-spacing: -0.01em; color: #fff; }
 .detail-meta { font-family: "IBM Plex Mono"; font-size: 13px; color: #d3f0ff; margin-top: 6px; font-weight: 600; }
-.detail-dday { display: inline-block; margin-top: 12px; background: var(--accent); color: #fff; font-size: 12.5px; font-weight: 800; padding: 5px 12px; border-radius: 20px; letter-spacing: -0.01em; }
+.detail-dday { display: inline-block; margin-top: 12px; background: #ff5c33; /* accent(#ff4a1c)에 흰색 10%만 살짝 섞음 - 너무 튀어서 눈아프다는 피드백, 전역 --accent는 다른 곳에 다 쓰여서 이 배지만 국소 조정 */ color: #fff; font-size: 12.5px; font-weight: 800; padding: 5px 12px; border-radius: 20px; letter-spacing: -0.01em; }
 .dist-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
-.dist-pill { font-family: "IBM Plex Mono"; font-size: 12px; font-weight: 700; padding: 5px 12px; border-radius: 20px; background: rgba(255,255,255,0.18); color: #fff; border: none; }
+.dist-pill { font-family: "IBM Plex Mono"; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 20px; background: rgba(255,255,255,0.12); color: #fff; border: none; }
 .detail-competitiveness { font-size: 13px; margin: 14px 22px 0; padding: 10px 12px; background: var(--accent-bg); color: var(--accent-dark); border-radius: var(--radius); font-weight: 600; }
 .detail-body { padding: 4px 22px 22px; }
 .detail-rows { margin: 16px 0; }
@@ -154,7 +154,7 @@ body { margin: 0; background: var(--page-bg); color: #2c2c2a; line-height: 1.5; 
 .detail-section-title { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
 .detail-tips { font-size: 14px; line-height: 1.6; margin: 0; }
 .detail-refs { font-size: 12px; color: var(--muted); margin: 8px 0 0; }
-.apply-button { display: block; text-align: center; margin-top: 20px; padding: 14px; border-radius: var(--radius); background: var(--accent); color: #fff; text-decoration: none; font-size: 15px; font-weight: 500; }
+.apply-button { display: block; text-align: center; margin-top: 20px; padding: 14px; border-radius: var(--radius); background: #ff6943; /* accent(#ff4a1c)에 흰색 17% 섞은 틴트 - 히어로와 같은 처리 */ color: #fff; text-decoration: none; font-size: 15px; font-weight: 500; }
 .apply-button:hover { opacity: 0.92; }
 .race-detail-empty { padding: 30px 0; color: var(--muted); }
 .detail-verified-note { font-size: 11.5px; color: var(--muted); margin: 8px 0 0; line-height: 1.5; }
