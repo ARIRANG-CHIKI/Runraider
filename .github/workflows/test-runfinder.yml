@@ -1,0 +1,16 @@
+# 임시 테스트용 - runfinder.kr이 GitHub Actions IP에서도 막히는지 확인만 하려고 만듦.
+# 확인 끝나면 삭제할 예정.
+name: (임시) runfinder.kr 접속 테스트
+on:
+  workflow_dispatch: {}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements.txt
+      - run: python scrape_runfinder.py
