@@ -19,7 +19,15 @@ import requests
 from bs4 import BeautifulSoup
 
 BASE = "https://gorunning.kr"
-HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; RunRaiderBot/1.0)"}
+# 2026-09-06: 헤더가 스스로 "봇"이라고 밝히는 User-Agent였는데, GitHub Actions
+# 러너에서 실행할 때만 403 Forbidden이 계속 남 (같은 코드가 로컬에서는 정상 작동함 -
+# IP 차단 가능성이 높지만, 봇으로 식별되는 User-Agent도 원인일 수 있어 우선 일반
+# 브라우저처럼 보이는 값으로 바꿔봄).
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                  "(KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
+    "Accept-Language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
+}
 
 STATUS_MAP = {
     "등록중": "접수중",
