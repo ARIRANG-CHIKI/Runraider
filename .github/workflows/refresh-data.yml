@@ -88,60 +88,97 @@ jobs:
             exit 1
           fi
 
-      - name: 실질적 변경 여부 확인 (generatedAt 날짜만 바뀐 건 무시)
+      - name: 변경 diff 계산 + 보고 여부 판단 (누적 5/10건 또는 Tier1 관련이면 즉시)
+        # 2026-09-11 재설계: 예전엔 조금이라도 바뀌면 매번 이슈를 만들어서
+        # 6시간마다 돌리면 알림이 너무 잦아짐. diff는 항상 "마지막 배포(main)
+        # 이후 누적분"이라 총 건수 자체가 이미 누적치임 - 이걸 이용해서
+        # 5건 넘을 때, 10건 넘을 때(5의 배수 단위)만 보고하고, Tier1 메이저
+        # 대회가 껴있으면 건수 상관없이 즉시 보고한다. 같은 누적 상태로
+        # 반복 알림이 안 가도록 "마지막으로 보고한 건수"를 auto-refresh-pending
+        # 브랜치의 notify_state.json에 기록해뒀다가 다음 실행에서 읽어온다
+        # (main이 그새 실제 배포로 바뀌었으면 새 누적 주기로 취급해 리셋).
+        id: diff
         run: |
-          python -c "
-          import json
-          old = json.load(open('/dev/stdin', encoding='utf-8'))['races']
-          new = json.load(open('data.json', encoding='utf-8'))['races']
-          changed = old != new
-          print('실제 대회 데이터 변경:', changed)
-          open('changed.flag', 'w').write('1' if changed else '0')
-          " <<< "$(git show HEAD:data.json)"
+          python3 << 'EOF'
+          import json, subprocess, os
 
-      - name: 변경 요약 생성
-        if: ${{ true }}
-        run: |
-          python -c "
-          import json
-          old = {r['id']: r for r in json.load(open('/dev/stdin', encoding='utf-8'))['races']}
+          old = {r['id']: r for r in json.loads(subprocess.check_output(["git", "show", "HEAD:data.json"]).decode())['races']}
           new = {r['id']: r for r in json.load(open('data.json', encoding='utf-8'))['races']}
+
           added = [new[i] for i in new if i not in old]
           removed = [old[i] for i in old if i not in new]
           status_changed = [(old[i], new[i]) for i in new if i in old and old[i]['status'] != new[i]['status']]
+          total = len(added) + len(removed) + len(status_changed)
+
+          is_big = (any(r.get('tier') == 'Tier1' for r in added + removed)
+                    or any(o.get('tier') == 'Tier1' or n.get('tier') == 'Tier1' for o, n in status_changed))
+
+          main_sha = subprocess.check_output(["git", "rev-parse", "HEAD"]).decode().strip()
+
+          prev_notified, prev_main_sha = 0, None
+          try:
+              raw = subprocess.check_output(
+                  ["git", "show", "origin/auto-refresh-pending:notify_state.json"],
+                  stderr=subprocess.DEVNULL).decode()
+              state = json.loads(raw)
+              prev_notified = state.get("last_notified_count", 0)
+              prev_main_sha = state.get("last_main_sha")
+          except subprocess.CalledProcessError:
+              pass
+          if prev_main_sha != main_sha:
+              prev_notified = 0  # main이 그새 실제 배포로 바뀜 - 새 누적 주기
+
+          notify = is_big or (total >= 5 and total // 5 > prev_notified // 5)
+
           lines = []
+          if is_big:
+              lines.append('## 🚨 Tier1 메이저 대회 관련 변경 - 즉시 확인 요망')
+          lines.append(f'누적 변경 {total}건 (마지막 배포 이후 기준)')
           if added:
               lines.append(f'### 신규 대회 ({len(added)}건)')
-              for r in added: lines.append(f\"- {r['name']} ({r['date']}, {r['region']})\")
+              for r in added:
+                  lines.append(f"- {r['name']} ({r['date']}, {r['region']})" + (' 🏅Tier1' if r.get('tier') == 'Tier1' else ''))
           if removed:
               lines.append(f'### 사라진 대회 ({len(removed)}건)')
-              for r in removed: lines.append(f\"- {r['name']}\")
+              for r in removed:
+                  lines.append(f"- {r['name']}")
           if status_changed:
               lines.append(f'### 접수상태 변경 ({len(status_changed)}건)')
-              for o, n in status_changed: lines.append(f\"- {n['name']}: {o['status']} -> {n['status']}\")
-          open('summary.md', 'w', encoding='utf-8').write(chr(10).join(lines) or '(내용 없음)')
-          " <<< "$(git show HEAD:data.json)"
+              for o, n in status_changed:
+                  lines.append(f"- {n['name']}: {o['status']} -> {n['status']}" + (' 🏅Tier1' if n.get('tier') == 'Tier1' else ''))
+          open('summary.md', 'w', encoding='utf-8').write('\n'.join(lines) or '(내용 없음)')
 
-      - name: pending 브랜치에 올리고 이슈로 보고 (main엔 안 올림 - 배포는 승인 후 사람이)
+          json.dump(
+              {"last_notified_count": total if notify else prev_notified, "last_main_sha": main_sha},
+              open('notify_state.json', 'w'))
+
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              f.write(f"changed={'1' if total > 0 else '0'}\n")
+              f.write(f"notify={'1' if notify else '0'}\n")
+              f.write(f"total={total}\n")
+          EOF
+
+      - name: pending 브랜치에 올리고, 임계값 넘으면 이슈로 보고 (main엔 안 올림 - 배포는 승인 후 사람이)
+        if: steps.diff.outputs.changed == '1'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if [ "$(cat changed.flag)" = "1" ]; then
-            git config user.name "runraider-bot"
-            git config user.email "runraider-bot@users.noreply.github.com"
-            # jtbc_marathon_update.csv 등 일부 파일은 스크래퍼가 확신이 없을 때
-            # 일부러 안 만들고 스킵한다 (2026-09-07 확인됨). git add에 존재하지
-            # 않는 경로가 섞이면 "pathspec did not match" 에러로 이 스텝 자체가
-            # 죽어버려서(-e 옵션), 있는 파일만 골라 넣는다.
-            for f in data.json gorunning_extracted_sample.csv runfinder_new_only.csv runfinder_updates.csv chuncheon_update.csv seoul_marathon_update.csv jtbc_marathon_update.csv sitemap.xml rss.xml races/; do
-              [ -e "$f" ] && git add "$f"
-            done
-            git commit -m "자동 갱신 대기: $(date +'%Y-%m-%d %H:%M')"
-            git push origin HEAD:auto-refresh-pending --force
+          git config user.name "runraider-bot"
+          git config user.email "runraider-bot@users.noreply.github.com"
+          # jtbc_marathon_update.csv 등 일부 파일은 스크래퍼가 확신이 없을 때
+          # 일부러 안 만들고 스킵한다 (2026-09-07 확인됨). git add에 존재하지
+          # 않는 경로가 섞이면 "pathspec did not match" 에러로 이 스텝 자체가
+          # 죽어버려서(-e 옵션), 있는 파일만 골라 넣는다.
+          for f in data.json gorunning_extracted_sample.csv runfinder_new_only.csv runfinder_updates.csv chuncheon_update.csv seoul_marathon_update.csv jtbc_marathon_update.csv sitemap.xml rss.xml races/ notify_state.json; do
+            [ -e "$f" ] && git add "$f"
+          done
+          git commit -m "자동 갱신 대기: $(date +'%Y-%m-%d %H:%M') (누적 ${{ steps.diff.outputs.total }}건)"
+          git push origin HEAD:auto-refresh-pending --force
+          if [ "${{ steps.diff.outputs.notify }}" = "1" ]; then
             gh issue create \
-              --title "🔔 대회 데이터 변경 감지 ($(date +'%Y-%m-%d'))" \
+              --title "🔔 대회 데이터 누적 변경 ${{ steps.diff.outputs.total }}건 ($(date +'%Y-%m-%d %H:%M'))" \
               --body-file summary.md \
               --label "auto-refresh"
           else
-            echo "실제 데이터 변화 없음 - 보고/배포 스킵"
+            echo "누적 ${{ steps.diff.outputs.total }}건 - 아직 보고 임계값(5건) 미달, 조용히 pending 브랜치만 갱신"
           fi
