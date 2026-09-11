@@ -32,7 +32,10 @@ def fetch_notices():
     with sync_playwright() as p:
         browser = p.chromium.launch()
         page = browser.new_page()
-        page.goto(URL, wait_until="networkidle", timeout=30000)
+        # networkidle은 이 사이트에서 안 끝난다(광고/분석 스크립트가 연결을 계속
+        # 유지) - domcontentloaded로 받고 게시판 목록 셀렉터가 뜰 때까지만 기다린다.
+        page.goto(URL, wait_until="domcontentloaded", timeout=30000)
+        page.wait_for_selector("li.tit a.list_text_title", timeout=15000)
         html = page.content()
         browser.close()
     soup = BeautifulSoup(html, "html.parser")
